@@ -1,0 +1,7 @@
+C:\Users\HLC_2021\source\repos\Motor\Motor\obj\Debug\net6.0\Motor.csproj.AssemblyReference.cache
+C:\Users\HLC_2021\source\repos\Motor\Motor\obj\Debug\net6.0\Motor.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HLC_2021\source\repos\Motor\Motor\obj\Debug\net6.0\Motor.AssemblyInfoInputs.cache
+C:\Users\HLC_2021\source\repos\Motor\Motor\obj\Debug\net6.0\Motor.AssemblyInfo.cs
+C:\Users\HLC_2021\source\repos\Motor\Motor\obj\Debug\net6.0\Motor.csproj.CoreCompileInputs.cache
+C:\Users\HLC_2021\source\repos\Motor\Motor\obj\Debug\net6.0\Motor.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\HLC_2021\source\repos\Motor\Motor\obj\Debug\net6.0\Motor.MvcApplicationPartsAssemblyInfo.cache
