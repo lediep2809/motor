@@ -28,6 +28,7 @@ builder.Services.AddCors(options =>
                       });
 });
 
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -78,6 +79,14 @@ app.MapControllers();
 app.UseStatusCodePages();
 
 //app cors
+// CORS - Allow calling the API from WebBrowsers
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials()
+    .WithOrigins("https://motor.up.railway.app") // Allow only this origin can also have multiple origins seperated with comma
+    .SetIsOriginAllowed(origin => true));// Allow any origin  
+
 // Configure
 app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
