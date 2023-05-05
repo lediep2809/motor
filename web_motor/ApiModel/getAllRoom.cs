@@ -6,7 +6,7 @@ namespace R4R_API.Models
     public class getAllRoom
     {
 
-        public Room room { get; set; } = null!;
+        public Motor room { get; set; } = null!;
 
         public List<string>? ImgRoom { get; set; }
 

@@ -17,19 +17,19 @@ public partial class R4rContext : DbContext
 
     public virtual DbSet<Role> Roles { get; set; }
 
-    public virtual DbSet<Room> Rooms { get; set; }
+    public virtual DbSet<Motor> Rooms { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
-    public virtual DbSet<Category> Categories { get; set; }
+    public virtual DbSet<Type> Types { get; set; }
 
-    public virtual DbSet<imgRoom> ImgRooms { get; set; }
+    public virtual DbSet<imgMotor> ImgMotors { get; set; }
 
     private string host = Environment.GetEnvironmentVariable("PGHOST");
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    => optionsBuilder.UseNpgsql("Host=containers-us-west-12.railway.app;Port=7353;Database=railway;Username=postgres;Password=nwQ6SIdnBq9a3XcVh7IJ");
+    => optionsBuilder.UseNpgsql("Host=containers-us-west-12.railway.app;Port=6613;Database=railway;Username=postgres;Password=P1uIYcTfSal2qMZqwZzX");
 
 protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -48,72 +48,32 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
                 .HasColumnName("name");
         });
 
-        modelBuilder.Entity<Room>(entity =>
+        modelBuilder.Entity<Motor>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("room_pkey");
+            entity.HasKey(e => e.Id).HasName("motor_pkey");
 
-            entity.ToTable("room");
+            entity.ToTable("motor");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
                 .HasColumnName("id");
-            entity.Property(e => e.Activeby)
+            entity.Property(e => e.Type)
                 .HasMaxLength(255)
-                .HasColumnName("activeby");
-            entity.Property(e => e.Activedate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("activedate");
-            entity.Property(e => e.Address)
-                .HasMaxLength(255)
-                .HasColumnName("address");
-            entity.Property(e => e.Area)
-                .HasMaxLength(255)
-                .HasColumnName("area");
-            entity.Property(e => e.Capacity)
-                .HasMaxLength(255)
-                .HasColumnName("capacity");
-            entity.Property(e => e.Category)
-                .HasMaxLength(255)
-                .HasColumnName("category");
+                .HasColumnName("type");
             entity.Property(e => e.Createdby)
                 .HasMaxLength(255)
                 .HasColumnName("createdby");
             entity.Property(e => e.Createddate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("createddate");
-            entity.Property(e => e.Deposit)
-                .HasMaxLength(255)
-                .HasColumnName("deposit");
             entity.Property(e => e.Description).HasColumnName("description");
-            entity.Property(e => e.Electricprice)
-                .HasMaxLength(255)
-                .HasColumnName("electricprice");
-            entity.Property(e => e.Houseowner)
-                .HasMaxLength(255)
-                .HasColumnName("houseowner");
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .HasColumnName("name");
-            entity.Property(e => e.Otherprice)
-                .HasMaxLength(255)
-                .HasColumnName("otherprice");
-            entity.Property(e => e.Ownerphone)
-                .HasMaxLength(255)
-                .HasColumnName("ownerphone");
             entity.Property(e => e.Price)
                 .HasMaxLength(255)
                 .HasColumnName("price");
             entity.Property(e => e.Status).HasColumnName("status");
-            entity.Property(e => e.Waterprice)
-                .HasMaxLength(255)
-                .HasColumnName("waterprice");
-            entity.Property(e => e.noSex)
-                .HasMaxLength(255)
-                .HasColumnName("nosex");
-            entity.Property(e => e.utilities)
-                .HasMaxLength(255)
-                .HasColumnName("utilities");
-            entity.Property(e => e.imgRoom).HasColumnName("imgroom");
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -144,11 +104,11 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
             entity.Property(e => e.Status).HasColumnName("status");
         });
 
-        modelBuilder.Entity<Category>(entity =>
+        modelBuilder.Entity<Type>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("role_pkey");
+            entity.HasKey(e => e.Id).HasName("type_pkey");
 
-            entity.ToTable("category");
+            entity.ToTable("type");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Code)
@@ -162,16 +122,16 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
                 .HasColumnName("status");
         });
 
-        modelBuilder.Entity<imgRoom>(entity =>
+        modelBuilder.Entity<imgMotor>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("role_pkey");
 
             entity.ToTable("imgRoom");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.idroom)
-                .HasColumnName("idroom");
-            entity.Property(e => e.imgbase64)
+            entity.Property(e => e.idMotor)
+                .HasColumnName("idmotor");
+            entity.Property(e => e.Imgbase64)
                 .HasColumnName("imgbase64");
         });
         OnModelCreatingPartial(modelBuilder);

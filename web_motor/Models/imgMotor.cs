@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace R4R_API.Models;
 
-public partial class imgRoom
+public partial class imgMotor
 {
     public string Id { get; set; } = null!;
 
-    public string? imgbase64 { get; set; }
+    public string? Imgbase64 { get; set; }
 
-    public string? idroom { get; set; }
+    public string? idMotor { get; set; }
 }

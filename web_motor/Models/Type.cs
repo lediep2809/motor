@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace R4R_API.Models;
 
-public partial class Category
+public partial class Type
 {
     public string? Id { get; set; }
 

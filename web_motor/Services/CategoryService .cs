@@ -21,11 +21,11 @@ namespace R4R_API.Services
             _Db = Db;
         }
 
-        public Category getbycode(string data)
+        public Models.Type getbycode(string data)
         {
             try
             {
-                Category category = _Db.Categories.Where(e => e.Code == data.Trim()).FirstOrDefault();
+                Models.Type category = _Db.Categories.Where(e => e.Code == data.Trim()).FirstOrDefault();
 
                 return category;
             }
@@ -35,7 +35,7 @@ namespace R4R_API.Services
             }
         }
 
-        public Category saveCategory(Category data)
+        public Models.Type saveCategory(Models.Type data)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace R4R_API.Services
             }
         }
 
-        public Category updateCategory(Category data)
+        public Models.Type updateCategory(Models.Type data)
         {
             try
             {

@@ -57,10 +57,10 @@ namespace AuthenticationAndAuthorization.Controllers
             return Ok(_roomsService.getRoomsByUser(paging,email));
         }
 
-        [HttpPost("getCategory")]
+        [HttpPost("getType")]
         public async Task<ActionResult> GetCategory()
         {
-            var data = await _context.Categories.ToListAsync();
+            var data = await _context.Types.ToListAsync();
             return Ok(data);
         }
 
@@ -68,21 +68,21 @@ namespace AuthenticationAndAuthorization.Controllers
         [Authorize(Roles = DefaultString.ROLE_1)]
         public async Task<ActionResult> newCategory(NewCategory category)
         {
-            Category data = new Category();
+            R4R_API.Models.Type data = new R4R_API.Models.Type();
             Guid myuuid = Guid.NewGuid();
             data.Id = myuuid.ToString();
             data.Code = category.Code;
             data.Name = category.Name;
             data.Status = "1";
 
-            _context.Categories.Add(data);
+            _context.Types.Add(data);
             _context.SaveChanges();
 
           /*  _categoryService.saveCategory(data);*/
             return Ok(category);
         }
 
-        [HttpPost("editCategory")]
+        [HttpPost("editTypes")]
         [Authorize(Roles = DefaultString.ROLE_1)]
         public async Task<ActionResult> editCategory(editCategory category)
         {
@@ -97,7 +97,7 @@ namespace AuthenticationAndAuthorization.Controllers
             check.Status = "1".Equals(category.Status)? "1" : "0";
             try
             {
-                _context.Categories.Update(check);
+                _context.Types.Update(check);
                 _context.SaveChanges();
 
                 return Ok(category);
@@ -117,7 +117,7 @@ namespace AuthenticationAndAuthorization.Controllers
 
             if (roomCheck == null)
             {
-                return BadRequest("Không tìm thấy phòng");
+                return BadRequest("Không tìm thấy ");
             }
 
             _context.Rooms.Remove(roomCheck);
@@ -141,62 +141,18 @@ namespace AuthenticationAndAuthorization.Controllers
 
             if (roomCheck == null && emailEdit.Equals(roomCheck.Createdby))
             {
-                return BadRequest("Không tìm thấy phòng");
+                return BadRequest("Không tìm thấy ");
             }
             roomCheck.Name = room.Name;
-            roomCheck.Address = room.Address;
-            roomCheck.Category = room.Category;
-            roomCheck.Area = room.Area;
-            roomCheck.Capacity = room.Capacity;
+            roomCheck.Type = room.Category;
             roomCheck.Description = room.Description;
             roomCheck.Price = room.Price;
-            roomCheck.Deposit = room.Deposit;
-            roomCheck.Electricprice = room.Electricprice;
-            roomCheck.Waterprice = room.Waterprice;
-            roomCheck.Otherprice = room.Otherprice;
-            roomCheck.Houseowner = room.Houseowner;
-            roomCheck.Ownerphone = room.Ownerphone;
-/*            var img = string.Join("(,)", room.imgRoom);
-            roomCheck.imgRoom = img;*/
             roomCheck.Status = room.Status;
-            roomCheck.noSex = room.noSex;
             var util = string.Join(",", room.utilities);
-            roomCheck.utilities = util;
             var roomEdit = _roomsService.updateRoom(roomCheck, room.imgRoom);
             if (roomEdit == null)
             {
-                return BadRequest("Không tìm thấy phòng");
-            }
-
-            return Ok(roomEdit);
-        }
-
-        [HttpPost("activeRoom")]
-        [Authorize(Roles = DefaultString.ROLE_1)]
-        public async Task<ActionResult> activeRoom(activeRoom room)
-        {
-            var roomCheck = _context.Rooms.Where(e => e.Id == room.Id).FirstOrDefault();
-
-            var re = Request;
-            var headers = re.Headers;
-            string tokenString = headers.Authorization;
-            var jwtEncodedString = tokenString.Substring(7); // trim 'Bearer ' from the start since its just a prefix for the token string
-            var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
-            var emailEdit = token.Claims.First(c => c.Type == "Email").Value;
-
-            if (roomCheck == null)
-            {
-                return BadRequest("Không tìm thấy phòng");
-            }
-
-            roomCheck.Activeby = emailEdit;
-            roomCheck.Activedate = new DateTime();
-            roomCheck.Status = room.Status;
-
-            var roomEdit = _roomsService.updateRoom(roomCheck);
-            if (roomEdit == null)
-            {
-                return BadRequest("Không tìm thấy phòng");
+                return BadRequest("Không tìm thấy ");
             }
 
             return Ok(roomEdit);
@@ -214,36 +170,23 @@ namespace AuthenticationAndAuthorization.Controllers
             var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
             var email = token.Claims.First(c => c.Type == "Email").Value;
 
-            Room room = new Room();
+            Motor room = new Motor();
             Guid myuuid = Guid.NewGuid();
             room.Id = myuuid.ToString();
             room.Name = newRoom.Name;
-            room.Address = newRoom.Address;
-            room.Category = newRoom.Category;
-            room.Area = newRoom.Area;
-            room.Capacity = newRoom.Capacity;
+            room.Type = newRoom.Category;
             room.Description = newRoom.Description;
             room.Price = newRoom.Price;
-            room.Deposit = newRoom.Deposit;
-            room.Electricprice = newRoom.Electricprice;
-            room.Waterprice = newRoom.Waterprice;
-            room.Otherprice = newRoom.Otherprice;
-            room.Houseowner = newRoom.Houseowner;
-            room.Ownerphone = newRoom.Ownerphone;
             room.Createdby = email;
-/*            var img = string.Join("(,)", newRoom.imgRoom);
-            room.imgRoom = img;*/
-            room.noSex = room.noSex;
 
             var util = string.Join(",", newRoom.utilities);
-            room.utilities = util;
             room.Createddate = new DateTime();
             room.Status = 0;
 
             var roomNew = _roomsService.saveRoom(room, newRoom.imgRoom);
             if (roomNew == null)
             {
-                return BadRequest("Tạo mới phòng thất bại");
+                return BadRequest("Tạo mới thất bại");
             }
             return Ok(roomNew);
         }
