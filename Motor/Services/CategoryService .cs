@@ -22,11 +22,11 @@ namespace Motor.Services
             _Db = Db;
         }
 
-        public Models.Type getbycode(string data)
+        public Models.TypeMotor getbycode(string data)
         {
             try
             {
-                Models.Type category = _Db.Types.Where(e => e.Code == data.Trim()).FirstOrDefault();
+                Models.TypeMotor category = _Db.Types.Where(e => e.Code == data.Trim()).FirstOrDefault();
 
                 return category;
             }
@@ -36,7 +36,7 @@ namespace Motor.Services
             }
         }
 
-        public Models.Type saveCategory(Models.Type data)
+        public Models.TypeMotor saveCategory(Models.TypeMotor data)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace Motor.Services
             }
         }
 
-        public Models.Type updateCategory(Models.Type data)
+        public Models.TypeMotor updateCategory(Models.TypeMotor data)
         {
             try
             {

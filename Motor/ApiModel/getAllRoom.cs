@@ -6,7 +6,7 @@ namespace Motor.Models
     public class getAllRoom
     {
 
-        public Motor room { get; set; } = null!;
+        public MotorModel room { get; set; } = null!;
 
         public List<string>? ImgRoom { get; set; }
 
