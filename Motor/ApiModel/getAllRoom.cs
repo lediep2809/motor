@@ -10,7 +10,6 @@ namespace Motor.Models
 
         public List<string>? ImgRoom { get; set; }
 
-        public string[] Utilities { get; set; } = null!;
     }
 }
 

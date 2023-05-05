@@ -29,7 +29,7 @@ namespace AuthenticationAndAuthorization.Controllers
         }
 
 
-        [HttpPost("searchRooms")]
+        [HttpPost("searchMotor")]
         public async Task<ActionResult> GetAll(Paging paging)
         {
             return Ok(_roomsService.GetAll(paging));
@@ -49,14 +49,14 @@ namespace AuthenticationAndAuthorization.Controllers
             return Ok(_roomsService.getRoomsByUser(paging,email));
         }
 
-        [HttpPost("getType")]
+        [HttpPost("getTypes")]
         public async Task<ActionResult> GetCategory()
         {
             var data = await _context.Types.ToListAsync();
             return Ok(data);
         }
 
-        [HttpPost("newCategory")]
+        [HttpPost("newTypes")]
         [Authorize(Roles = DefaultString.ROLE_1)]
         public async Task<ActionResult> newCategory(NewCategory category)
         {
@@ -101,7 +101,7 @@ namespace AuthenticationAndAuthorization.Controllers
             
         }
 
-        [HttpPost("deleteRoom")]
+        [HttpPost("deleteMotor")]
         [Authorize(Roles = DefaultString.ROLE_1)]
         public async Task<ActionResult> deleteRoom(activeRoom room)
         {
@@ -118,9 +118,9 @@ namespace AuthenticationAndAuthorization.Controllers
             return Ok();
         }
 
-        [HttpPost("editRooms")]
+        [HttpPost("editMotor")]
         [Authorize]
-        public async Task<ActionResult> editRooms(EditRoom room)
+        public async Task<ActionResult> editRooms(EditMotor room)
         {
             var roomCheck = _context.Motors.Where(e => e.Id == room.Id).FirstOrDefault();
 
@@ -136,12 +136,11 @@ namespace AuthenticationAndAuthorization.Controllers
                 return BadRequest("Không tìm thấy ");
             }
             roomCheck.Name = room.Name;
-            roomCheck.Type = room.Category;
+            roomCheck.Type = room.Type;
             roomCheck.Description = room.Description;
             roomCheck.Price = room.Price;
             roomCheck.Status = room.Status;
-            var util = string.Join(",", room.utilities);
-            var roomEdit = _roomsService.updateRoom(roomCheck, room.imgRoom);
+            var roomEdit = _roomsService.updateRoom(roomCheck, room.imgMotor);
             if (roomEdit == null)
             {
                 return BadRequest("Không tìm thấy ");
@@ -151,9 +150,9 @@ namespace AuthenticationAndAuthorization.Controllers
         }
 
 
-        [HttpPost("saveNewRoom")]
+        [HttpPost("saveNewMotor")]
         [Authorize]
-        public async Task<ActionResult> saveRoom(SaveNewRoom newRoom)
+        public async Task<ActionResult> saveRoom(SaveNewMotor newRoom)
         {
             var re = Request;
             var headers = re.Headers;
@@ -166,16 +165,15 @@ namespace AuthenticationAndAuthorization.Controllers
             Guid myuuid = Guid.NewGuid();
             room.Id = myuuid.ToString();
             room.Name = newRoom.Name;
-            room.Type = newRoom.Category;
+            room.Type = newRoom.Type;
             room.Description = newRoom.Description;
             room.Price = newRoom.Price;
             room.Createdby = email;
 
-            var util = string.Join(",", newRoom.utilities);
             room.Createddate = new DateTime();
             room.Status = 0;
 
-            var roomNew = _roomsService.saveRoom(room, newRoom.imgRoom);
+            var roomNew = _roomsService.saveRoom(room, newRoom.imgMotor);
             if (roomNew == null)
             {
                 return BadRequest("Tạo mới thất bại");
