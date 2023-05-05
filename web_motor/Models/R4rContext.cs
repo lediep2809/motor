@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace R4R_API.Models;
+namespace web_motor.Models;
 
 public partial class R4rContext : DbContext
 {

@@ -1,6 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 
-namespace R4R_API.Services
+namespace web_motor.Services
 {
     public class ConstainServices
     {

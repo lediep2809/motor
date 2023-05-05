@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace R4R_API.Services
+namespace web_motor.Services
 {
     public class UserService 
     {

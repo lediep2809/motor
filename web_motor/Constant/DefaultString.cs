@@ -1,4 +1,4 @@
-﻿namespace R4R_API.Constant
+﻿namespace web_motor.Constant
 {
     public class DefaultString
     {

@@ -1,4 +1,4 @@
-﻿namespace R4R_API.ApiModel
+﻿namespace web_motor.ApiModel
 {
     public class EditRoom
     {

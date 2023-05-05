@@ -1,13 +1,13 @@
-﻿using R4R_API.ApiModel;
-using R4R_API.Models;
+﻿using web_motor.ApiModel;
+using web_motor.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using R4R_API.Services;
-using R4R_API.Constant;
+using web_motor.Services;
+using web_motor.Constant;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Data;

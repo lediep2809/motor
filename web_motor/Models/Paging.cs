@@ -1,4 +1,4 @@
-﻿namespace R4R_API.Models
+﻿namespace web_motor.Models
 {
     public class Paging
     {

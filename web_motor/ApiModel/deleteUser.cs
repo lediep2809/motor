@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace R4R_API.Models;
+namespace web_motor.Models;
 
 public class deleteUser
 {

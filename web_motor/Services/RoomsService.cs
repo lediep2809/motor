@@ -1,4 +1,4 @@
-﻿using R4R_API.Models;
+﻿using web_motor.Models;
 using System.Net.NetworkInformation;
 using System.Security.Claims;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using System.Xml.Linq;
 
-namespace R4R_API.Services
+namespace web_motor.Services
 {
     public class RoomsService
     {

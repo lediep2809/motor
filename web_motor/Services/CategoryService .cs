@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using R4R_API.Constant;
 
-namespace R4R_API.Services
+namespace web_motor.Services
 {
     public class CategoryService
     {

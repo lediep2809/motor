@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using R4R_API.Models;
-using R4R_API.Services;
+using web_motor.Models;
+using web_motor.Services;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
 
