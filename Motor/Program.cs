@@ -23,8 +23,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       builder =>
                       {
-                          builder.WithOrigins("https://r4r.up.railway.app/",
-                                              "http://r4r.up.railway.app/");
+                          builder.WithOrigins("https://motor.up.railway.app").AllowAnyHeader()
+                                                .AllowAnyMethod();
                       });
 });
 
