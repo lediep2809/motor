@@ -57,7 +57,7 @@ namespace R4R_API.Services
             }
 
             var test = _Db.Rooms
-                    .FromSqlRaw($"select * from room as u where ( '{price}' = '' or TO_NUMBER(u.price,'9999999999') between '{to}' and '{from}')")
+                    .FromSqlRaw($"select * from motor as u where ( '{price}' = '' or TO_NUMBER(u.price,'9999999999') between '{to}' and '{from}')")
                     .Where(p => (p.Name.ToUpper().Trim().Contains(search))
                         && (category == "" || p.Type.Equals(category))
                         && (status =="" || p.Status.Equals(s)) )
@@ -124,7 +124,7 @@ namespace R4R_API.Services
             }
 
             var test = _Db.Rooms
-                    .FromSqlRaw($"select * from room as u where ( '{price}' = '' or TO_NUMBER(u.price,'9999999999') between '{to}' and '{from}')")
+                    .FromSqlRaw($"select * from motor as u where ( '{price}' = '' or TO_NUMBER(u.price,'9999999999') between '{to}' and '{from}')")
                     .Where(p => (p.Name.ToUpper().Trim().Contains(search))
                         && (category == "" || p.Type.Equals(category))
                         && (status == "" || p.Status.Equals(s))

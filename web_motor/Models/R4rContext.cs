@@ -126,7 +126,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             entity.HasKey(e => e.Id).HasName("role_pkey");
 
-            entity.ToTable("imgRoom");
+            entity.ToTable("imgmotor");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.idMotor)

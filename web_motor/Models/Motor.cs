@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace R4R_API.Models;
 
-public partial class Room
+public partial class Motor
 {
     public string? Id { get; set; }
 

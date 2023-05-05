@@ -20,7 +20,7 @@ namespace AuthenticationAndAuthorization.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoomsController : ControllerBase
+    public class MotorController : ControllerBase
     {
         R4rContext _context = new R4rContext();
 
@@ -30,7 +30,7 @@ namespace AuthenticationAndAuthorization.Controllers
         private readonly ILogger _logger;
 
 
-        public RoomsController(IConfiguration configuration, RoomsService roomsService)
+        public MotorController(IConfiguration configuration, RoomsService roomsService)
         {
             _configuration = configuration;
             _roomsService = roomsService;
