@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Motor.Models;
 
-public partial class Motor
+public partial class MotorModel
 {
     public string? Id { get; set; }
 
