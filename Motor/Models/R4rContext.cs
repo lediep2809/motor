@@ -17,11 +17,11 @@ public partial class R4rContext : DbContext
 
     public virtual DbSet<Role> Roles { get; set; }
 
-    public virtual DbSet<Motor> Motors { get; set; }
+    public virtual DbSet<MotorModel> Motors { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
-    public virtual DbSet<Type> Types { get; set; }
+    public virtual DbSet<TypeMotor> Types { get; set; }
 
     public virtual DbSet<imgMotor> ImgMotors { get; set; }
 
@@ -48,7 +48,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
                 .HasColumnName("name");
         });
 
-        modelBuilder.Entity<Motor>(entity =>
+        modelBuilder.Entity<MotorModel>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("motor_pkey");
 
@@ -104,7 +104,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
             entity.Property(e => e.Status).HasColumnName("status");
         });
 
-        modelBuilder.Entity<Type>(entity =>
+        modelBuilder.Entity<TypeMotor>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("type_pkey");
 
