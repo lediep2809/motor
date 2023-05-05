@@ -1,4 +1,4 @@
-﻿using R4R_API.Models;
+﻿using web_motor.Models;
 using System.Net.NetworkInformation;
 using System.Security.Claims;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
-using R4R_API.Constant;
+using web_motor.Constant;
 
 namespace web_motor.Services
 {
