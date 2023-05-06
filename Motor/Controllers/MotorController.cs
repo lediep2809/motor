@@ -114,12 +114,12 @@ namespace AuthenticationAndAuthorization.Controllers
         {
             var check = _categoryService.getbycode(category.Code.Trim().ToLower());
 
-            if (roomCheck == null)
+            if (check == null)
             {
                 return BadRequest("Không tìm thấy ");
             }
 
-            _context.Motors.Remove(roomCheck);
+            _context.Types.Remove(check);
             _context.SaveChanges();
 
             return Ok();
