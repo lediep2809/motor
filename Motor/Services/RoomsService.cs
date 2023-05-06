@@ -68,9 +68,11 @@ namespace Motor.Services
                 .ToList();
 
                 allRoom.ImgRoom = imgRooms ;
+                var total = _Db.ImgMotors.Count();
+                allRoom.total = _Db.Motors.Count();
                 allRooms.Add(allRoom);
             }
-
+            
 
             return allRooms;
         }
@@ -133,6 +135,9 @@ namespace Motor.Services
                  .ToList();
 
                 allRoom.ImgRoom = imgRooms;
+
+                var total = _Db.ImgMotors.Count();
+                allRoom.total = _Db.Motors.Count();
                 allRooms.Add(allRoom);
             }
 

@@ -10,6 +10,8 @@ namespace Motor.Models
 
         public List<string>? ImgRoom { get; set; }
 
+        public int? total { get; set; }
+
     }
 }
 
