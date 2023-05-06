@@ -15,10 +15,11 @@ namespace AuthenticationAndAuthorization.Controllers
     public class MotorController : ControllerBase
     {
         R4rContext _context = new R4rContext();
+        CategoryService _categoryService = new CategoryService();
 
         private readonly IConfiguration _configuration;
         private readonly RoomsService _roomsService;
-        private readonly CategoryService _categoryService;
+
         private readonly ILogger _logger;
 
 
@@ -60,7 +61,7 @@ namespace AuthenticationAndAuthorization.Controllers
         [Authorize(Roles = DefaultString.ROLE_1)]
         public async Task<ActionResult> newCategory(NewCategory category)
         {
-            var check = _categoryService.getbycode(category.Code.Trim().ToLower());
+            var check = _categoryService.getbycode(category.Code);
 
             if (check != null)
             {

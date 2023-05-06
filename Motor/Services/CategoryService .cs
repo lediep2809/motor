@@ -16,17 +16,21 @@ namespace Motor.Services
     {
 
         private readonly R4rContext _Db;
+        public CategoryService()
+        {
+            
+        }
 
         public CategoryService(R4rContext Db)
         {
             _Db = Db;
         }
 
-        public Models.TypeMotor getbycode(string data)
+        public TypeMotor getbycode(string data)
         {
             try
             {
-                Models.TypeMotor category = _Db.Types.Where(e => e.Code == data.Trim()).FirstOrDefault();
+                TypeMotor category = _Db.Types.Where(e => e.Code == data.Trim()).FirstOrDefault();
 
                 return category;
             }
@@ -36,7 +40,7 @@ namespace Motor.Services
             }
         }
 
-        public Models.TypeMotor saveCategory(Models.TypeMotor data)
+        public TypeMotor saveCategory(TypeMotor data)
         {
             try
             {
@@ -51,7 +55,7 @@ namespace Motor.Services
             }
         }
 
-        public Models.TypeMotor updateCategory(Models.TypeMotor data)
+        public TypeMotor updateCategory(TypeMotor data)
         {
             try
             {
