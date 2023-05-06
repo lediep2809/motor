@@ -60,10 +60,17 @@ namespace AuthenticationAndAuthorization.Controllers
         [Authorize(Roles = DefaultString.ROLE_1)]
         public async Task<ActionResult> newCategory(NewCategory category)
         {
+            var check = _categoryService.getbycode(category.Code.Trim().ToLower());
+
+            if (check != null)
+            {
+                return BadRequest("Loại đã tồn tại");
+            }
+
             TypeMotor data = new TypeMotor();
             Guid myuuid = Guid.NewGuid();
             data.Id = myuuid.ToString();
-            data.Code = category.Code;
+            data.Code = category.Code.Trim().ToLower();
             data.Name = category.Name;
             data.Status = "1";
 
@@ -78,7 +85,7 @@ namespace AuthenticationAndAuthorization.Controllers
         [Authorize(Roles = DefaultString.ROLE_1)]
         public async Task<ActionResult> editCategory(editCategory category)
         {
-            var check =  _categoryService.getbycode(category.Code);
+            var check =  _categoryService.getbycode(category.Code.Trim().ToLower());
 
             if (check == null )
             {
@@ -99,6 +106,23 @@ namespace AuthenticationAndAuthorization.Controllers
                 return BadRequest("Không tìm thấy Loại");
             }
             
+        }
+
+        [HttpPost("deleteTypes")]
+        [Authorize(Roles = DefaultString.ROLE_1)]
+        public async Task<ActionResult> deleteTypes(deleteTypes category)
+        {
+            var check = _categoryService.getbycode(category.Code.Trim().ToLower());
+
+            if (roomCheck == null)
+            {
+                return BadRequest("Không tìm thấy ");
+            }
+
+            _context.Motors.Remove(roomCheck);
+            _context.SaveChanges();
+
+            return Ok();
         }
 
         [HttpPost("deleteMotor")]
