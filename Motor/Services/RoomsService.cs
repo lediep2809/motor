@@ -19,10 +19,7 @@ namespace Motor.Services
             int pageSize =  paging.PageSize <= 0 ? 10 : paging.PageSize;
             var search =paging.SearchQuery.ToUpper().Trim();
             var price = paging.Price.ToLower().Trim();
-            var category = paging.Category.Trim();
-            var util = string.Join(",", paging.utilities);
-            var utilities = util;
-            var noSex = paging.noSex.ToUpper().Trim();
+            var type = paging.type.Trim();
             var status = paging.status;
             int s = 0;
 
@@ -51,7 +48,7 @@ namespace Motor.Services
             var test = _Db.Motors
                     .FromSqlRaw($"select * from motor as u where ( '{price}' = '' or TO_NUMBER(u.price,'9999999999') between '{to}' and '{from}')")
                     .Where(p => (p.Name.ToUpper().Trim().Contains(search))
-                        && (category == "" || p.Type.Equals(category))
+                        && (type == "" || p.Type.Equals(type))
                         && (status =="" || p.Status.Equals(s)) )
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)
@@ -86,10 +83,7 @@ namespace Motor.Services
             int pageSize = paging.PageSize <= 0 ? 10 : paging.PageSize;
             var search = paging.SearchQuery.ToUpper().Trim();
             var price = paging.Price.ToLower().Trim();
-            var category = paging.Category.Trim();
-            var util = string.Join(",", paging.utilities);
-            var utilities = util;
-            var noSex = paging.noSex.ToUpper().Trim();
+            var type = paging.type.Trim();
             var status = paging.status;
             int s = 0;
 
@@ -118,7 +112,7 @@ namespace Motor.Services
             var test = _Db.Motors
                     .FromSqlRaw($"select * from motor as u where ( '{price}' = '' or TO_NUMBER(u.price,'9999999999') between '{to}' and '{from}')")
                     .Where(p => (p.Name.ToUpper().Trim().Contains(search))
-                        && (category == "" || p.Type.Equals(category))
+                        && (type == "" || p.Type.Equals(type))
                         && (status == "" || p.Status.Equals(s))
                         && (email == "" || p.Createdby.Equals(email)))
                     .Skip((pageNum - 1) * pageSize)
@@ -153,7 +147,7 @@ namespace Motor.Services
                 foreach (var i in img)
                 {
                     imgMotor ro = new imgMotor();
-                    Models.TypeMotor data = new Models.TypeMotor();
+                    TypeMotor data = new TypeMotor();
                     Guid myuuid = Guid.NewGuid();
                     ro.Id = myuuid.ToString();
                     ro.idMotor = room.Id;
@@ -186,7 +180,7 @@ namespace Motor.Services
                 foreach (var i in img)
                 {
                     imgMotor ro = new imgMotor();
-                    Models.TypeMotor data = new Models.TypeMotor();
+                    TypeMotor data = new TypeMotor();
                     Guid myuuid = Guid.NewGuid();
                     ro.Id = myuuid.ToString();
                     ro.idMotor = room.Id;
