@@ -24,7 +24,7 @@ namespace AuthenticationAndAuthorization.Controllers
 
         public static User user = new User();
         private readonly IConfiguration _configuration;
-        private readonly CartService _cartService;
+       /* private readonly CartService _cartService;*/
         public CartController(IConfiguration configuration)
         {
             _configuration = configuration;
