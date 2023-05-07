@@ -13,7 +13,7 @@ namespace Motor.Services
             _Db = Db;
         }
 
-        public List<getAllRoom> GetAll(Paging paging)
+        public List<getAllMotor> GetAll(Paging paging)
         {
             int pageNum = paging.PageNumber <=0 ? 1 : paging.PageNumber;
             int pageSize =  paging.PageSize <= 0 ? 10 : paging.PageSize;
@@ -55,11 +55,11 @@ namespace Motor.Services
                     .OrderBy(s => s.Status)
                     .ToList();
 
-            List<getAllRoom> allRooms = new List<getAllRoom>();
+            List<getAllMotor> allRooms = new List<getAllMotor>();
 
             foreach (var room in test)
             {
-                getAllRoom allRoom = new getAllRoom();
+                getAllMotor allRoom = new getAllMotor();
                 allRoom.room = room;
 
                 var imgRooms = _Db.ImgMotors
@@ -79,7 +79,7 @@ namespace Motor.Services
 
 
 
-        public List<getAllRoom> getRoomsByUser(Paging paging,string email)
+        public List<getAllMotor> getRoomsByUser(Paging paging,string email)
         {
             int pageNum = paging.PageNumber <= 0 ? 1 : paging.PageNumber;
             int pageSize = paging.PageSize <= 0 ? 10 : paging.PageSize;
@@ -122,11 +122,11 @@ namespace Motor.Services
                     .OrderBy(s => s.Createdby)
                     .ToList();
 
-            List<getAllRoom> allRooms = new List<getAllRoom>();
+            List<getAllMotor> allRooms = new List<getAllMotor>();
 
             foreach (var room in test)
             {
-                getAllRoom allRoom = new getAllRoom();
+                getAllMotor allRoom = new getAllMotor();
                 allRoom.room = room;
 
                 var imgRooms = _Db.ImgMotors
