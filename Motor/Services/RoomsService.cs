@@ -60,14 +60,14 @@ namespace Motor.Services
             foreach (var room in test)
             {
                 getAllMotor allRoom = new getAllMotor();
-                allRoom.room = room;
+                allRoom.motor = room;
 
                 var imgRooms = _Db.ImgMotors
                 .Where(m => m.idMotor.Equals(room.Id))
                 .Select(u => u.Imgbase64)
                 .ToList();
 
-                allRoom.ImgRoom = imgRooms ;
+                allRoom.ImgMotor = imgRooms ;
                 var total = _Db.ImgMotors.Count();
                 allRoom.total = _Db.Motors.Count();
                 allRooms.Add(allRoom);
@@ -127,14 +127,14 @@ namespace Motor.Services
             foreach (var room in test)
             {
                 getAllMotor allRoom = new getAllMotor();
-                allRoom.room = room;
+                allRoom.motor = room;
 
                 var imgRooms = _Db.ImgMotors
                  .Where(m => m.idMotor.Equals(room.Id))
                  .Select(u => u.Imgbase64)
                  .ToList();
 
-                allRoom.ImgRoom = imgRooms;
+                allRoom.ImgMotor = imgRooms;
 
                 var total = _Db.ImgMotors.Count();
                 allRoom.total = _Db.Motors.Count();

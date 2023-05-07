@@ -4,7 +4,7 @@ namespace Motor.Models
 {
     public class CartItem
     {
-        
+
         public string CartId { get; set; }
 
         public int Quantity { get; set; }

@@ -138,7 +138,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
         });
         OnModelCreatingPartial(modelBuilder);
 
-/*        modelBuilder.Entity<CartItem>(entity =>
+        modelBuilder.Entity<CartItem>(entity =>
         {
             entity.HasKey(e => e.CartId).HasName("cartitem_pkey");
 
@@ -156,7 +156,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
             entity.Property(e => e.DateCreated)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("datecreated");
-        });*/
+        });
         OnModelCreatingPartial(modelBuilder);
     }
 
