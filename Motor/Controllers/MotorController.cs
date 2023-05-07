@@ -62,34 +62,25 @@ namespace AuthenticationAndAuthorization.Controllers
         [Authorize(Roles = DefaultString.ROLE_1)]
         public async Task<ActionResult> newCategory(NewCategory category)
         {
-            
-            try
-            {
-                TypeMotor check = _categoryService.getbycode(category.Code.Trim().ToLower());
-                /*check = _context.Types.Where(e => e.Code.Equals(category.Code.Trim().ToLower())).FirstOrDefault();*/
+            var check = _categoryService.getbycode(category.Code);
 
-                if (check != null)
-                {
-                return BadRequest("Loại đã tồn tại");
-                }
-
-                TypeMotor data = new TypeMotor();
-                Guid myuuid = Guid.NewGuid();
-                data.Id = myuuid.ToString();
-                data.Code = category.Code.Trim().ToLower();
-                data.Name = category.Name;
-                data.Status = "1";
-
-                _context.Types.Add(data);
-                _context.SaveChanges();
-
-          /*  _categoryService.saveCategory(data);*/
-                return Ok(category);
-            } catch (Exception ex)
+            if (check != null)
             {
                 return BadRequest("Loại đã tồn tại");
             }
 
+            TypeMotor data = new TypeMotor();
+            Guid myuuid = Guid.NewGuid();
+            data.Id = myuuid.ToString();
+            data.Code = category.Code.Trim();
+            data.Name = category.Name;
+            data.Status = "1";
+
+            _context.Types.Add(data);
+            _context.SaveChanges();
+
+          /*  _categoryService.saveCategory(data);*/
+            return Ok(category);
         }
 
         [HttpPost("editTypes")]
