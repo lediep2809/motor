@@ -25,6 +25,8 @@ public partial class R4rContext : DbContext
 
     public virtual DbSet<imgMotor> ImgMotors { get; set; }
 
+    public virtual DbSet<CartItem> CartItems { get; set; }
+
     private string host = Environment.GetEnvironmentVariable("PGHOST");
 
 
@@ -124,7 +126,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
         modelBuilder.Entity<imgMotor>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("role_pkey");
+            entity.HasKey(e => e.Id).HasName("imgmotor_pkey");
 
             entity.ToTable("imgmotor");
 
@@ -133,6 +135,27 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
                 .HasColumnName("idmotor");
             entity.Property(e => e.Imgbase64)
                 .HasColumnName("imgbase64");
+        });
+        OnModelCreatingPartial(modelBuilder);
+
+        modelBuilder.Entity<CartItem>(entity =>
+        {
+            entity.HasKey(e => e.CartId).HasName("cartitem_pkey");
+
+            entity.ToTable("cart_shop");
+
+            entity.Property(e => e.CartId).HasColumnName("cartId");
+            entity.Property(e => e.Quantity)
+                .HasColumnName("quantity");
+            entity.Property(e => e.motorId)
+                .HasColumnName("motorId");
+            entity.Property(e => e.createBy)
+                .HasColumnName("createby");
+            entity.Property(e => e.totalprice)
+                .HasColumnName("totalprice");
+            entity.Property(e => e.DateCreated)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("datecreated");
         });
         OnModelCreatingPartial(modelBuilder);
     }

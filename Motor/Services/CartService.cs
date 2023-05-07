@@ -9,25 +9,26 @@ using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using Motor.Constant;
 using Motor.Models;
+using Motor.ApiModel;
 
 namespace Motor.Services
-{
-    public class CategoryService
+{   
+    public class CartService
     {
 
         private readonly R4rContext _Db;
-        public CategoryService(R4rContext Db)
+        public CartService(R4rContext Db)
         {
             _Db = Db;
         }
 
-        public TypeMotor getbycode(string data)
+        public List<CartItem> getCartShop(string data)
         {
             try
             {
-                var category = _Db.Types.Where(e => e.Code.ToLower().Equals(data.Trim())).FirstOrDefault();
+                var CartItems = _Db.CartItems.Where(e => e.createBy.Equals(data)).ToList();
 
-                return category;
+                return CartItems;
             }
             catch (Exception ex)
             {
@@ -35,18 +36,34 @@ namespace Motor.Services
             }
         }
 
-        public TypeMotor saveCategory(TypeMotor data)
+        public string saveCategory(List<CartOrder> data,string createBy)
         {
             try
             {
-                _Db.Types.Add(data);
+                foreach(var x in data)
+                {
+
+                 /*   int test = _Db.Motors
+                        .Where(e => e.Id.Equals(x.motorId))
+                        .Select(e => e.Price).
+                        ;*/
+
+
+                    CartItem cartItem = new CartItem();
+                    cartItem.createBy = createBy;
+                    cartItem.motorId = x.motorId;
+                    cartItem.Quantity = x.Quantity;
+/*                    cartItem.totalprice = (x.Quantity * test).ToString();
+*/                    cartItem.DateCreated = new DateTime();
+                }
+                
                 _Db.SaveChanges();
 
-                return data;
+                return "Thêm mới thành công";
             }
             catch (Exception ex)
             {
-                return null;
+                return "Thêm mới thất bại";
             }
         }
 
