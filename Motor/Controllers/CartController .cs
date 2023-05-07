@@ -1,18 +1,10 @@
-﻿
-using Microsoft.AspNetCore.Http;
+﻿/*
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
 using System.Data;
-using Microsoft.Net.Http.Headers;
 using Motor.Models;
 using Motor.Constant;
 using web_motor.Models;
-using Motor.Services;
 
 namespace AuthenticationAndAuthorization.Controllers
 {
@@ -24,7 +16,7 @@ namespace AuthenticationAndAuthorization.Controllers
 
         public static User user = new User();
         private readonly IConfiguration _configuration;
-       /* private readonly CartService _cartService;*/
+       *//* private readonly CartService _cartService;*//*
         public CartController(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -79,3 +71,4 @@ namespace AuthenticationAndAuthorization.Controllers
         }
     }
 }
+*/
