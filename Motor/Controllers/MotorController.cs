@@ -63,7 +63,7 @@ namespace AuthenticationAndAuthorization.Controllers
         {
             var check = _categoryService.getbycode(category.Code);
 
-            if (check == null)
+            if (check != null)
             {
                 return BadRequest("Loại đã tồn tại");
             }
