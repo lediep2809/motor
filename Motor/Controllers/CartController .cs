@@ -1,10 +1,11 @@
-﻿/*
+﻿
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using Motor.Models;
 using Motor.Constant;
 using web_motor.Models;
+using Motor.Services;
 
 namespace AuthenticationAndAuthorization.Controllers
 {
@@ -16,7 +17,7 @@ namespace AuthenticationAndAuthorization.Controllers
 
         public static User user = new User();
         private readonly IConfiguration _configuration;
-       *//* private readonly CartService _cartService;*//*
+        private readonly CartService _cartService;
         public CartController(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -42,7 +43,7 @@ namespace AuthenticationAndAuthorization.Controllers
             }
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(user.Password);
             checkUser.Fullname = user.Fullname;
-            checkUser.Phone= user.Phone;
+            checkUser.Phone = user.Phone;
             checkUser.Password = passwordHash;
             checkUser.Status = user.Status;
             checkUser.Roleid = user.Roleid;
@@ -71,4 +72,3 @@ namespace AuthenticationAndAuthorization.Controllers
         }
     }
 }
-*/
