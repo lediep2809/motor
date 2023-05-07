@@ -15,18 +15,19 @@ namespace AuthenticationAndAuthorization.Controllers
     public class MotorController : ControllerBase
     {
         R4rContext _context = new R4rContext();
-        CategoryService _categoryService = new CategoryService();
+        /*CategoryService _categoryService = new CategoryService();*/
 
         private readonly IConfiguration _configuration;
         private readonly RoomsService _roomsService;
-
+        private readonly CategoryService _categoryService;
         private readonly ILogger _logger;
 
 
-        public MotorController(IConfiguration configuration, RoomsService roomsService)
+        public MotorController(IConfiguration configuration, RoomsService roomsService, CategoryService categoryService)
         {
             _configuration = configuration;
             _roomsService = roomsService;
+            _categoryService = categoryService;
         }
 
 
@@ -61,25 +62,34 @@ namespace AuthenticationAndAuthorization.Controllers
         [Authorize(Roles = DefaultString.ROLE_1)]
         public async Task<ActionResult> newCategory(NewCategory category)
         {
-            var check = _categoryService.getbycode(category.Code);
+            
+            try
+            {
+                TypeMotor check = _categoryService.getbycode(category.Code.Trim().ToLower());
+                /*check = _context.Types.Where(e => e.Code.Equals(category.Code.Trim().ToLower())).FirstOrDefault();*/
 
-            if (check != null)
+                if (check != null)
+                {
+                return BadRequest("Loại đã tồn tại");
+                }
+
+                TypeMotor data = new TypeMotor();
+                Guid myuuid = Guid.NewGuid();
+                data.Id = myuuid.ToString();
+                data.Code = category.Code.Trim().ToLower();
+                data.Name = category.Name;
+                data.Status = "1";
+
+                _context.Types.Add(data);
+                _context.SaveChanges();
+
+          /*  _categoryService.saveCategory(data);*/
+                return Ok(category);
+            } catch (Exception ex)
             {
                 return BadRequest("Loại đã tồn tại");
             }
 
-            TypeMotor data = new TypeMotor();
-            Guid myuuid = Guid.NewGuid();
-            data.Id = myuuid.ToString();
-            data.Code = category.Code.Trim().ToLower();
-            data.Name = category.Name;
-            data.Status = "1";
-
-            _context.Types.Add(data);
-            _context.SaveChanges();
-
-          /*  _categoryService.saveCategory(data);*/
-            return Ok(category);
         }
 
         [HttpPost("editTypes")]

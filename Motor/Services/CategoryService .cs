@@ -16,11 +16,6 @@ namespace Motor.Services
     {
 
         private readonly R4rContext _Db;
-        public CategoryService()
-        {
-            
-        }
-
         public CategoryService(R4rContext Db)
         {
             _Db = Db;
@@ -30,7 +25,7 @@ namespace Motor.Services
         {
             try
             {
-                TypeMotor category = _Db.Types.Where(e => e.Code == data.Trim()).FirstOrDefault();
+                var category = _Db.Types.Where(e => e.Code.Equals(data.Trim())).FirstOrDefault();
 
                 return category;
             }
