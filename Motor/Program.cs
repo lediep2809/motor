@@ -16,7 +16,7 @@ builder.Services.AddDbContext<R4rContext>(options =>
 builder.Services.AddScoped<RoomsService, RoomsService>();
 builder.Services.AddScoped<CategoryService, CategoryService>();
 builder.Services.AddScoped<UserService, UserService>();
-builder.Services.AddScoped<CartService, CartService>();
+/*builder.Services.AddScoped<CartService, CartService>();*/
 //services cors
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
