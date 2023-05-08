@@ -97,18 +97,18 @@ namespace Motor.Services
 
             if (price.Equals("first"))
             {
-                to = 1000000;
-                from = 5000000;
+                to = 10000000;
+                from = 50000000;
             }
             else if (price.Equals("second"))
             {
-                to = 6000000;
-                from = 10000000;
+                to = 50000000;
+                from = 100000000;
             }
             else if (price.Equals("third"))
             {
-                to = 11000000;
-                from = 15000000;
+                to = 100000000;
+                from = 200000000;
             }
 
             var test = _Db.Motors
