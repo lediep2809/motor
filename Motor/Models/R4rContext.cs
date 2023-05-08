@@ -29,7 +29,7 @@ public partial class R4rContext : DbContext
 
     public virtual DbSet<Order> Orders { get; set; }
 
-    public virtual DbSet<OrderDetial> OrderDetials { get; set; }
+    public virtual DbSet<OrderDetail> OrderDetials { get; set; }
 
     private string host = Environment.GetEnvironmentVariable("PGHOST");
 
@@ -178,7 +178,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
                 .HasColumnName("createddate");
         });
 
-        modelBuilder.Entity<OrderDetial>(entity =>
+        modelBuilder.Entity<OrderDetail>(entity =>
         {
             entity.ToTable("order_detial");
 

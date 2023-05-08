@@ -21,19 +21,21 @@ namespace AuthenticationAndAuthorization.Controllers
         private readonly IConfiguration _configuration;
         private readonly CartService _cartService;
         private readonly UserService _userService;
-        public OrderController(IConfiguration configuration, UserService userService, CartService cartService)
+        private readonly OrderService _orderService;
+        public OrderController(IConfiguration configuration, UserService userService, CartService cartService, OrderService orderService)
         {
             _configuration = configuration;
             _userService = userService;
             _cartService = cartService;
+            _orderService = orderService;
         }
 
-        [HttpGet("getCart")]
+        [HttpGet("newOrder")]
         [Authorize]
-        public async Task<ActionResult> getCart()
+        public async Task<ActionResult> newOrder()
         {
             var email = _userService.getTokenValue(Request, DefaultString.Email);
-            var alert = _cartService.getCartShop(email);
+            var alert = _orderService.newOrder(email);
             return Ok(alert);
         }
 

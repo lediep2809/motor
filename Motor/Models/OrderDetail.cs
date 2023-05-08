@@ -1,6 +1,6 @@
 ﻿namespace Motor.Models
 {
-    public class OrderDetial
+    public class OrderDetail
     {
         public string? orderId { get; set; }
 

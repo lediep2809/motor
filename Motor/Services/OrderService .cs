@@ -22,13 +22,13 @@ namespace Motor.Services
             _Db = Db;
         }
 
-        public List<CartItem> getCartShop(string data)
+        public List<Order> getOrderDetial(string data)
         {
             try
             {
-                var CartItems = _Db.CartItems.Where(e => e.createBy.Equals(data)).ToList();
+                var order = _Db.Orders.Where(e => e.orderId.Equals(data)).ToList();
 
-                return CartItems;
+                return order;
             }
             catch (Exception ex)
             {
@@ -36,36 +36,19 @@ namespace Motor.Services
             }
         }
 
-        public string saveCartShop(List<CartOrder> data,string createBy)
+        public string newOrder(string createBy)
         {
             try
             {
-                var CartItems = _Db.CartItems.Where(e => e.createBy.Equals(createBy)).ToList();
-                _Db.CartItems.RemoveRange(CartItems);
-                _Db.SaveChanges();
 
-                foreach (var x in data)
-                {
-                    int price = 0;
-                    string? test = _Db.Motors
-                        .Where(e => e.Id.Equals(x.motorId))
-                        .Select(e => e.Price).SingleOrDefault();
-                    if(test != null)
-                    {
-                        price = int.Parse(test);
-                    }
+                Order order = new Order();
+                Guid myuuid = Guid.NewGuid();
+                order.orderId = myuuid.ToString();
+                order.Createdby = createBy;
+                order.Status = 0;
+                order.Createddate = new DateTime();
+                _Db.Orders.Add(order);
 
-                    CartItem cartItem = new CartItem();
-                    Guid myuuid = Guid.NewGuid();
-                    cartItem.CartId = myuuid.ToString();
-                    cartItem.createBy = createBy;
-                    cartItem.motorId = x.motorId;
-                    cartItem.Quantity = x.Quantity;
-                    cartItem.totalprice = (x.Quantity * price).ToString();
-                    cartItem.DateCreated = new DateTime();
-                    _Db.CartItems .Add(cartItem);
-                }
-                
                 _Db.SaveChanges();
 
                 return "Thêm mới thành công";
