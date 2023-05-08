@@ -13,7 +13,7 @@ namespace AuthenticationAndAuthorization.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CartController : ControllerBase
+    public class OrderController : ControllerBase
     {
         R4rContext _context = new R4rContext();
 
@@ -21,7 +21,7 @@ namespace AuthenticationAndAuthorization.Controllers
         private readonly IConfiguration _configuration;
         private readonly CartService _cartService;
         private readonly UserService _userService;
-        public CartController(IConfiguration configuration, UserService userService, CartService cartService)
+        public OrderController(IConfiguration configuration, UserService userService, CartService cartService)
         {
             _configuration = configuration;
             _userService = userService;

@@ -18,12 +18,12 @@ namespace AuthenticationAndAuthorization.Controllers
         /*CategoryService _categoryService = new CategoryService();*/
 
         private readonly IConfiguration _configuration;
-        private readonly RoomsService _roomsService;
+        private readonly MotorService _roomsService;
         private readonly CategoryService _categoryService;
         private readonly ILogger _logger;
 
 
-        public MotorController(IConfiguration configuration, RoomsService roomsService, CategoryService categoryService)
+        public MotorController(IConfiguration configuration, MotorService roomsService, CategoryService categoryService)
         {
             _configuration = configuration;
             _roomsService = roomsService;

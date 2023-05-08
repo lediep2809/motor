@@ -27,6 +27,10 @@ public partial class R4rContext : DbContext
 
     public virtual DbSet<CartItem> CartItems { get; set; }
 
+    public virtual DbSet<Order> Orders { get; set; }
+
+    public virtual DbSet<OrderDetial> OrderDetials { get; set; }
+
     private string host = Environment.GetEnvironmentVariable("PGHOST");
 
 
@@ -157,6 +161,36 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("datecreated");
         });
+
+        modelBuilder.Entity<Order>(entity =>
+        {
+            entity.HasKey(e => e.orderId).HasName("order_pkey");
+
+            entity.ToTable("order");
+
+            entity.Property(e => e.orderId).HasColumnName("orderId");
+            entity.Property(e => e.Createdby)
+                .HasColumnName("createdby");
+            entity.Property(e => e.Status)
+                .HasColumnName("status");
+            entity.Property(e => e.Createddate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createddate");
+        });
+
+        modelBuilder.Entity<OrderDetial>(entity =>
+        {
+            entity.ToTable("order_detial");
+
+            entity.Property(e => e.orderId).HasColumnName("orderId");
+            entity.Property(e => e.motorId)
+                .HasColumnName("motorId");
+            entity.Property(e => e.price)
+                .HasColumnName("price");
+            entity.Property(e => e.Quantity)
+                .HasColumnName("quantity");
+        });
+
         OnModelCreatingPartial(modelBuilder);
     }
 

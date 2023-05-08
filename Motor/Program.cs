@@ -13,10 +13,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<R4rContext>(options =>
     options.UseNpgsql("Server=containers-us-west-15.railway.app;Database=railway;Port=6613;User Id=postgres;Password=P1uIYcTfSal2qMZqwZzX"));
-builder.Services.AddScoped<RoomsService, RoomsService>();
+builder.Services.AddScoped<MotorService, MotorService>();
 builder.Services.AddScoped<CategoryService, CategoryService>();
 builder.Services.AddScoped<UserService, UserService>();
 builder.Services.AddScoped<CartService, CartService>();
+builder.Services.AddScoped<OrderService, OrderService>();
 //services cors
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";

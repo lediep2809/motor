@@ -13,11 +13,11 @@ using Motor.ApiModel;
 
 namespace Motor.Services
 {   
-    public class CartService
+    public class OrderService
     {
 
         private readonly R4rContext _Db;
-        public CartService(R4rContext Db)
+        public OrderService(R4rContext Db)
         {
             _Db = Db;
         }

@@ -3,12 +3,12 @@ using Motor.Models;
 
 namespace Motor.Services
 {
-    public class RoomsService
+    public class MotorService
     {
 
         private readonly R4rContext _Db;
 
-        public RoomsService(R4rContext Db)
+        public MotorService(R4rContext Db)
         {
             _Db = Db;
         }
