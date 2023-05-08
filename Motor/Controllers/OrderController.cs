@@ -30,7 +30,7 @@ namespace AuthenticationAndAuthorization.Controllers
             _orderService = orderService;
         }
 
-        [HttpGet("newOrder")]
+        [HttpPost("newOrder")]
         [Authorize]
         public async Task<ActionResult> newOrder()
         {
