@@ -182,7 +182,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => e.orderId).HasName("OrderDetail_pkey");
+            entity.HasNoKey();
             entity.ToTable("order_detial");
 
             entity.Property(e => e.orderId).HasColumnName("orderId");
