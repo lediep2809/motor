@@ -30,21 +30,38 @@ namespace AuthenticationAndAuthorization.Controllers
             _orderService = orderService;
         }
 
+        [HttpGet("listOrder")]
+        [Authorize]
+        public async Task<ActionResult> listOrder()
+        {
+            var email = _userService.getTokenValue(Request, DefaultString.Email);
+            var alert = _orderService.getOrder(email);
+            if (alert != null)
+            {
+                return Ok(alert);
+            }
+            return BadRequest("Bạn chưa có order nào");
+        }
+
+        [HttpGet("getOrderDetail")]
+        [Authorize]
+        public async Task<ActionResult> getOrderDetail(string idOrder)
+        {
+            var email = _userService.getTokenValue(Request, DefaultString.Email);
+            var alert = _orderService.getOrderDetial(idOrder, email);
+            if (alert != null)
+            {
+                return Ok(alert);
+            }
+            return BadRequest("Không tìm thấy giao dịch");
+        }
+
         [HttpPost("newOrder")]
         [Authorize]
         public async Task<ActionResult> newOrder(List<CartOrder> carts)
         {
             var email = _userService.getTokenValue(Request, DefaultString.Email);
             var alert = _orderService.newOrder(carts,email);
-            return Ok(alert);
-        }
-
-        [HttpPost("addToCart")]
-        [Authorize]
-        public async Task<ActionResult> addToCart(List<CartOrder> carts)
-        {
-            var email = _userService.getTokenValue(Request, DefaultString.Email);
-            var alert = _cartService.saveCartShop(carts, email);
             if (alert != null)
             {
                 return Ok(alert);
@@ -52,17 +69,30 @@ namespace AuthenticationAndAuthorization.Controllers
             return BadRequest("Thêm mới thất bại");
         }
 
-        [HttpPost("delaValCart")]
+        [HttpPost("payOrder")]
         [Authorize]
-        public async Task<ActionResult> delaValCart(string id)
+        public async Task<ActionResult> payOrder(string orderId)
         {
             var email = _userService.getTokenValue(Request, DefaultString.Email);
-            var alert = _cartService.delValCart(id, email);
+            var alert = _orderService.payOrder(orderId, email);
             if (alert != null)
             {
                 return Ok(alert);
             }
-            return BadRequest("del thất bại");
+            return BadRequest("Thanh toán thất bại");
+        }
+
+        [HttpPost("cacleOrder")]
+        [Authorize]
+        public async Task<ActionResult> cacleOrder(string orderId)
+        {
+            var email = _userService.getTokenValue(Request, DefaultString.Email);
+            var alert = _orderService.cacleOrder(orderId, email);
+            if (alert != null)
+            {
+                return Ok(alert);
+            }
+            return BadRequest("thất bại");
         }
     }
 }

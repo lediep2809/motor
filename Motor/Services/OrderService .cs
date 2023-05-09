@@ -22,11 +22,11 @@ namespace Motor.Services
             _Db = Db;
         }
 
-        public List<Order> getOrderDetial(string data)
+        public List<Order> getOrder(string data)
         {
             try
             {
-                var order = _Db.Orders.Where(e => e.orderId.Equals(data)).ToList();
+                var order = _Db.Orders.Where(e => e.orderId.Equals(data) && !e.Status.Equals(3)).ToList();
 
                 return order;
             }
@@ -36,7 +36,29 @@ namespace Motor.Services
             }
         }
 
-        public string newOrder(List<CartOrder> carts ,string createBy)
+        public List<OrderDetail> getOrderDetial(string idOrder, string data)
+        {
+            try
+            {
+                var order = _Db.Orders.Where(e => e.Createdby.Equals(data) &&
+               e.orderId.Equals(idOrder)).FirstOrDefault();
+
+                if (order == null)
+                {
+                    return null;
+                }
+
+                var orderDeatail = _Db.OrderDetials.Where(e => e.orderId.Equals(idOrder)).ToList();
+
+                return orderDeatail;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public Order newOrder(List<CartOrder> carts ,string createBy)
         {
             try
             {
@@ -48,6 +70,7 @@ namespace Motor.Services
                 order.Status = 0;
                 order.Createddate = new DateTime();
 
+                int totalPrice = 0;
                 foreach (var x in carts)
                 {
                     int price = 0;
@@ -60,21 +83,21 @@ namespace Motor.Services
                     }
 
                     OrderDetail orderDetail = new OrderDetail();
-
+                    orderDetail.Id  = Guid.NewGuid().ToString();
                     orderDetail.motorId = x.motorId;
                     orderDetail.price = price.ToString();
                     orderDetail.Quantity = x.Quantity;
                     orderDetail.orderId = order.orderId;
-
+                    totalPrice = totalPrice + x.Quantity * price;
                     _Db.OrderDetials.Add(orderDetail);
                 }
 
-
+                order.totalPrice = totalPrice.ToString();
                 _Db.Orders.Add(order);
 
                 _Db.SaveChanges();
 
-                return "Thêm mới thành công";
+                return order;
             }
             catch (Exception ex)
             {
@@ -82,16 +105,40 @@ namespace Motor.Services
             }
         }
 
-        public string delValCart(string id, string createBy)
+        public string payOrder(string id, string createBy)
         {
             try
             {
-                var CartItems = _Db.CartItems.Where(e => e.createBy.Equals(createBy) &&
-                e.CartId.Equals(id)).FirstOrDefault();
+                var payOrder = _Db.Orders.Where(e => e.Createdby.Equals(createBy) &&
+                e.orderId.Equals(id)).FirstOrDefault();
                 
-                if(CartItems != null)
+                if(payOrder != null)
                 {
-                    _Db.CartItems.RemoveRange(CartItems);
+                    payOrder.Status = 1;
+                    _Db.Orders.Update(payOrder);
+                    _Db.SaveChanges();
+                    return "ok";
+                }
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public string cacleOrder(string id, string createBy)
+        {
+            try
+            {
+                var payOrder = _Db.Orders.Where(e => e.Createdby.Equals(createBy) &&
+                e.orderId.Equals(id)).FirstOrDefault();
+
+                if (payOrder != null)
+                {
+                    payOrder.Status = 2;
+                    _Db.Orders.Update(payOrder);
                     _Db.SaveChanges();
                     return "ok";
                 }
