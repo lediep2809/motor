@@ -8,6 +8,8 @@
 
         public DateTime Createddate { get; set; }
 
+        public string? totalPrice { get; set; }
+
         public int? Status { get; set; }
     }
 }

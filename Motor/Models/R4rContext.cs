@@ -173,12 +173,14 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
                 .HasColumnName("createdby");
             entity.Property(e => e.Status)
                 .HasColumnName("status");
+            entity.Property(e => e.totalPrice)
+                .HasColumnName("totalprice");
             entity.Property(e => e.Createddate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("createddate");
         });
 
-        modelBuilder.Entity<OrderDetail>(entity =>
+/*        modelBuilder.Entity<OrderDetail>(entity =>
         {
             entity.ToTable("order_detial");
 
@@ -189,7 +191,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
                 .HasColumnName("price");
             entity.Property(e => e.Quantity)
                 .HasColumnName("quantity");
-        });
+        });*/
 
         OnModelCreatingPartial(modelBuilder);
     }

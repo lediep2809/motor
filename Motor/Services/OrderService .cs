@@ -36,7 +36,7 @@ namespace Motor.Services
             }
         }
 
-        public string newOrder(string createBy)
+        public string newOrder(List<CartOrder> carts ,string createBy)
         {
             try
             {
@@ -47,6 +47,29 @@ namespace Motor.Services
                 order.Createdby = createBy;
                 order.Status = 0;
                 order.Createddate = new DateTime();
+
+                foreach (var x in carts)
+                {
+                    int price = 0;
+                    string? test = _Db.Motors
+                        .Where(e => e.Id.Equals(x.motorId))
+                        .Select(e => e.Price).SingleOrDefault();
+                    if (test != null)
+                    {
+                        price = int.Parse(test);
+                    }
+
+                    OrderDetail orderDetail = new OrderDetail();
+
+                    orderDetail.motorId = x.motorId;
+                    orderDetail.price = price.ToString();
+                    orderDetail.Quantity = x.Quantity;
+                    orderDetail.orderId = order.orderId;
+
+                    _Db.OrderDetials.Add(orderDetail);
+                }
+
+
                 _Db.Orders.Add(order);
 
                 _Db.SaveChanges();

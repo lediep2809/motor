@@ -32,10 +32,10 @@ namespace AuthenticationAndAuthorization.Controllers
 
         [HttpPost("newOrder")]
         [Authorize]
-        public async Task<ActionResult> newOrder()
+        public async Task<ActionResult> newOrder(List<CartOrder> carts)
         {
             var email = _userService.getTokenValue(Request, DefaultString.Email);
-            var alert = _orderService.newOrder(email);
+            var alert = _orderService.newOrder(carts,email);
             return Ok(alert);
         }
 
