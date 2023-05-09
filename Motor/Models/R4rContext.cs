@@ -180,8 +180,9 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
                 .HasColumnName("createddate");
         });
 
-/*        modelBuilder.Entity<OrderDetail>(entity =>
+        modelBuilder.Entity<OrderDetail>(entity =>
         {
+            entity.HasKey(e => e.orderId).HasName("OrderDetail_pkey");
             entity.ToTable("order_detial");
 
             entity.Property(e => e.orderId).HasColumnName("orderId");
@@ -191,7 +192,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
                 .HasColumnName("price");
             entity.Property(e => e.Quantity)
                 .HasColumnName("quantity");
-        });*/
+        });
 
         OnModelCreatingPartial(modelBuilder);
     }
