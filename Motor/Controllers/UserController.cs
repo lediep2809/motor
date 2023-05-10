@@ -47,10 +47,10 @@ namespace AuthenticationAndAuthorization.Controllers
             {
                 return BadRequest("Không tìm thấy user");
             }
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            // string passwordHash = BCrypt.Net.BCrypt.HashPassword(user.Password);
             checkUser.Fullname = user.Fullname;
             checkUser.Phone= user.Phone;
-            checkUser.Password = passwordHash;
+            // checkUser.Password = passwordHash;
             checkUser.Status = user.Status;
             checkUser.Roleid = user.Roleid;
 
