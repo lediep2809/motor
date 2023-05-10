@@ -36,6 +36,24 @@ namespace Motor.Services
             }
         }
 
+
+        public List<Order> getOrderChart(string data)
+        {
+            try
+            {
+                var order = _Db.Orders.Where(
+                    e => e.Createdby.Equals(data) && !e.Status.Equals(3)
+                   
+                ).ToList();
+
+                return order;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public List<detailOrder> getOrderDetial(string idOrder, string data)
         {
             try
@@ -74,7 +92,7 @@ namespace Motor.Services
                 order.orderId = myuuid.ToString();
                 order.Createdby = createBy;
                 order.Status = 0;
-                order.Createddate = new DateTime();
+                order.Createddate = DateTime.Today;
 
                 int totalPrice = 0;
                 foreach (var x in carts)

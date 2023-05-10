@@ -196,7 +196,7 @@ namespace AuthenticationAndAuthorization.Controllers
             room.Price = newRoom.Price;
             room.Createdby = email;
 
-            room.Createddate = new DateTime();
+            room.Createddate = DateTime.Today;
             room.Status = 0;
 
             var roomNew = _roomsService.saveRoom(room, newRoom.imgMotor);

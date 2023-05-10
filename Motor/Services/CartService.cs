@@ -66,20 +66,31 @@ namespace Motor.Services
                     string? test = _Db.Motors
                         .Where(e => e.Id.Equals(x.motorId))
                         .Select(e => e.Price).SingleOrDefault();
-                    if(test != null)
+                    if (test != null)
                     {
                         price = int.Parse(test);
                     }
 
-                    CartItem cartItem = new CartItem();
-                    Guid myuuid = Guid.NewGuid();
-                    cartItem.CartId = myuuid.ToString();
-                    cartItem.createBy = createBy;
-                    cartItem.motorId = x.motorId;
-                    cartItem.Quantity = x.Quantity;
-                    cartItem.totalprice = (x.Quantity * price).ToString();
-                    cartItem.DateCreated = new DateTime();
-                    _Db.CartItems .Add(cartItem);
+                    var item = _Db.CartItems.Where(e => e.createBy.Equals(createBy) && e.motorId.Equals(x.motorId)).FirstOrDefault();
+                    if (item != null)
+                    {
+                        var qauntity = x.Quantity + item.Quantity;
+                        item.Quantity = qauntity;
+                        item.totalprice = (item.Quantity * price).ToString();
+                        _Db.CartItems.Update(item);
+                    }
+                    else
+                    {
+                        CartItem cartItem = new CartItem();
+                        Guid myuuid = Guid.NewGuid();
+                        cartItem.CartId = myuuid.ToString();
+                        cartItem.createBy = createBy;
+                        cartItem.motorId = x.motorId;
+                        cartItem.Quantity = x.Quantity;
+                        cartItem.totalprice = (x.Quantity * price).ToString();
+                        cartItem.DateCreated = DateTime.Today;
+                        _Db.CartItems.Add(cartItem);
+                    }
                 }
                 
                 _Db.SaveChanges();
