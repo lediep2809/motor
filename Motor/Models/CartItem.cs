@@ -11,7 +11,7 @@ namespace Motor.Models
 
         public string motorId { get; set; }
 
-        public System.DateTime DateCreated { get; set; }
+        public DateTime DateCreated { get; set; }
 
         public string createBy { get; set; }
 

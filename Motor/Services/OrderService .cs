@@ -36,21 +36,27 @@ namespace Motor.Services
             }
         }
 
-        public List<OrderDetail> getOrderDetial(string idOrder, string data)
+        public List<detailOrder> getOrderDetial(string idOrder, string data)
         {
             try
             {
-                var order = _Db.Orders.Where(e => e.Createdby.Equals(data) &&
-               e.orderId.Equals(idOrder)).FirstOrDefault();
-
-                if (order == null)
-                {
-                    return null;
-                }
-
                 var orderDeatail = _Db.OrderDetials.Where(e => e.orderId.Equals(idOrder)).ToList();
 
-                return orderDeatail;
+                var item = (
+               from ai in _Db.OrderDetials
+
+               join al in _Db.Motors on ai.motorId equals al.Id
+               where (ai.orderId.Equals(idOrder))
+               select new detailOrder
+               {
+                   motorId = ai.motorId,
+                   Quantity = ai.Quantity,
+                   price = al.Price,
+                   motorName = al.Name,
+                   motorImg = _Db.ImgMotors.Where(e => e.idMotor.Equals(ai.motorId)).Select(e => e.Imgbase64).FirstOrDefault(),
+               }).ToList();
+
+                return item;
             }
             catch (Exception ex)
             {

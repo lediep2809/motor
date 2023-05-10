@@ -52,7 +52,7 @@ namespace Motor.Services
                         && (status =="" || p.Status.Equals(s)) )
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)
-                    .OrderBy(s => s.Status)
+                    .OrderByDescending(s => s.Status)
                     .ToList();
 
             List<getAllMotor> allRooms = new List<getAllMotor>();
@@ -119,7 +119,7 @@ namespace Motor.Services
                         && (email == "" || p.Createdby.Equals(email)))
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)
-                    .OrderBy(s => s.Createdby)
+                    .OrderByDescending(s => s.Createdby)
                     .ToList();
 
             List<getAllMotor> allRooms = new List<getAllMotor>();

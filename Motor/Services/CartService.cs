@@ -22,13 +22,32 @@ namespace Motor.Services
             _Db = Db;
         }
 
-        public List<CartItem> getCartShop(string data)
+        public List<listCart> getCartShop(string data)
         {
             try
             {
-                var CartItems = _Db.CartItems.Where(e => e.createBy.Equals(data)).ToList();
+/*                var CartItems = _Db.CartItems.Where(e => e.createBy.Equals(data)).ToList();
+*/
+                var item = (
+                from ai in _Db.CartItems
 
-                return CartItems;
+                join al in _Db.Motors on ai.motorId equals al.Id
+                where (ai.createBy.Equals(data))
+                select new listCart
+                {
+                    CartId = ai.CartId,
+                    motorId = ai.motorId,
+                    Quantity = ai.Quantity,
+                    DateCreated = ai.DateCreated,
+                    createBy = ai.createBy,
+                    totalprice  = ai.totalprice,
+                    price = al.Price,
+                    motorName=al.Name,
+                    motorImg = _Db.ImgMotors.Where(e => e.idMotor.Equals(ai.motorId)).Select(e => e.Imgbase64).FirstOrDefault(),
+                }).ToList();
+
+
+                return item;
             }
             catch (Exception ex)
             {
@@ -40,9 +59,6 @@ namespace Motor.Services
         {
             try
             {
-             /*   var CartItems = _Db.CartItems.Where(e => e.createBy.Equals(createBy)).ToList();
-                _Db.CartItems.RemoveRange(CartItems);
-                _Db.SaveChanges();*/
 
                 foreach (var x in data)
                 {
