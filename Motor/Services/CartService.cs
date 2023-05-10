@@ -55,12 +55,13 @@ namespace Motor.Services
             }
         }
 
-        public string saveCartShop(CartOrder data,string createBy)
+        public string saveCartShop(List<CartOrder> data,string createBy)
         {
             try
             {
 
-               
+                foreach (var x in data)
+                {
                     int price = 0;
                     string? test = _Db.Motors
                         .Where(e => e.Id.Equals(x.motorId))
@@ -79,7 +80,7 @@ namespace Motor.Services
                     cartItem.totalprice = (x.Quantity * price).ToString();
                     cartItem.DateCreated = new DateTime();
                     _Db.CartItems .Add(cartItem);
-                
+                }
                 
                 _Db.SaveChanges();
 
