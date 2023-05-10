@@ -26,7 +26,7 @@ namespace Motor.Services
         {
             try
             {
-                var order = _Db.Orders.Where(e => e.orderId.Equals(data) && !e.Status.Equals(3)).ToList();
+                var order = _Db.Orders.Where(e => e.Createdby.Equals(data) && !e.Status.Equals(3)).ToList();
 
                 return order;
             }
