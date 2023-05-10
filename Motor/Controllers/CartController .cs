@@ -62,5 +62,19 @@ namespace AuthenticationAndAuthorization.Controllers
             }
             return BadRequest("del thất bại");
         }
+
+        [HttpPost("updateValCart")]
+        [Authorize]
+        public async Task<ActionResult> updateValCart(cartUpdate carts)
+        {
+            var email = _userService.getTokenValue(Request, DefaultString.Email);
+            var alert = _cartService.updateCartShop(carts, email);
+            if (alert != null)
+            {
+                return Ok(alert);
+            }
+            return BadRequest("update thất bại");
+        }
+
     }
 }

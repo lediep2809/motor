@@ -124,5 +124,35 @@ namespace Motor.Services
                 return null;
             }
         }
+
+        public string updateCartShop(cartUpdate data, string createBy)
+        {
+            try
+            {
+                int price = 0;
+                string? test = _Db.Motors
+                    .Where(e => e.Id.Equals(data.motorId))
+                    .Select(e => e.Price).SingleOrDefault();
+                if (test != null)
+                {
+                    price = int.Parse(test);
+                }
+
+                var item = _Db.CartItems.Where(e => e.createBy.Equals(createBy) && e.motorId.Equals(data.motorId)).FirstOrDefault();
+                if (item != null)
+                {
+                    item.Quantity = data.Quantity;
+                    item.totalprice = (item.Quantity * price).ToString();
+                    _Db.CartItems.Update(item);
+                    _Db.SaveChanges();
+                    return "update thành công";
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }
