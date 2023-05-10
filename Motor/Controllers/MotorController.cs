@@ -18,23 +18,25 @@ namespace AuthenticationAndAuthorization.Controllers
         /*CategoryService _categoryService = new CategoryService();*/
 
         private readonly IConfiguration _configuration;
-        private readonly MotorService _roomsService;
+        private readonly MotorService _motorService;
         private readonly CategoryService _categoryService;
+        private readonly UserService _userService;
         private readonly ILogger _logger;
 
 
-        public MotorController(IConfiguration configuration, MotorService roomsService, CategoryService categoryService)
+        public MotorController(IConfiguration configuration, MotorService motorService, CategoryService categoryService, UserService userService)
         {
             _configuration = configuration;
-            _roomsService = roomsService;
+            _motorService = motorService;
             _categoryService = categoryService;
+            _userService = userService;
         }
 
 
         [HttpPost("searchMotor")]
         public async Task<ActionResult> GetAll(Paging paging)
         {
-            return Ok(_roomsService.GetAll(paging));
+            return Ok(_motorService.GetAll(paging));
         }
 
         [HttpPost("getRoomsByUser")]
@@ -48,7 +50,7 @@ namespace AuthenticationAndAuthorization.Controllers
             var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
             var email = token.Claims.First(c => c.Type == "Email").Value;
 
-            return Ok(_roomsService.getRoomsByUser(paging,email));
+            return Ok(_motorService.getRoomsByUser(paging,email));
         }
 
         [HttpPost("getTypes")]
@@ -166,7 +168,7 @@ namespace AuthenticationAndAuthorization.Controllers
             roomCheck.Description = room.Description;
             roomCheck.Price = room.Price;
             roomCheck.Status = room.Status;
-            var roomEdit = _roomsService.updateRoom(roomCheck, room.imgMotor);
+            var roomEdit = _motorService.updateRoom(roomCheck, room.imgMotor);
             if (roomEdit == null)
             {
                 return BadRequest("Không tìm thấy ");
@@ -178,7 +180,7 @@ namespace AuthenticationAndAuthorization.Controllers
 
         [HttpPost("saveNewMotor")]
         [Authorize]
-        public async Task<ActionResult> saveRoom(SaveNewMotor newRoom)
+        public async Task<ActionResult> saveMotor(SaveNewMotor newRoom)
         {
             var re = Request;
             var headers = re.Headers;
@@ -199,12 +201,63 @@ namespace AuthenticationAndAuthorization.Controllers
             room.Createddate = DateTime.Today;
             room.Status = 0;
 
-            var roomNew = _roomsService.saveRoom(room, newRoom.imgMotor);
+            var roomNew = _motorService.saveRoom(room, newRoom.imgMotor);
             if (roomNew == null)
             {
                 return BadRequest("Tạo mới thất bại");
             }
             return Ok(roomNew);
+        }
+
+
+        [HttpPost("newCmt")]
+        [Authorize]
+        public async Task<ActionResult> newCmt(newCmt newCmt)
+        {
+            var email = _userService.getTokenValue(Request, DefaultString.Email);
+            var cmt = _motorService.addCmt(newCmt, email);
+            if (cmt == null)
+            {
+                return BadRequest("Tạo mới thất bại");
+            }
+            return Ok(cmt);
+        }
+
+        [HttpPost("updateCmt")]
+        [Authorize]
+        public async Task<ActionResult> updateCmt(updateCmt updateCmt)
+        {
+            var email = _userService.getTokenValue(Request, DefaultString.Email);
+            var cmt = _motorService.updateCmt(updateCmt, email);
+            if (cmt == null)
+            {
+                return BadRequest("update thất bại");
+            }
+            return Ok(cmt);
+        }
+
+        [HttpPost("delCmt")]
+        [Authorize]
+        public async Task<ActionResult> delCmt(delCmt delCmt)
+        {
+            var email = _userService.getTokenValue(Request, DefaultString.Email);
+            var cmt = _motorService.delCmt(delCmt.cmtId, email);
+            if (cmt == null)
+            {
+                return BadRequest("xóa thất bại");
+            }
+            return Ok(cmt);
+        }
+
+        [HttpGet("getCmtMotor")]
+        public async Task<ActionResult> getCmtMotor(string motortid)
+        {
+            var cmt = _motorService.getCmtInMotor(motortid);
+            if (cmt == null)
+            {
+                return BadRequest("có lỗi xảy ra");
+            }
+            return Ok(cmt);
         }
 
     }

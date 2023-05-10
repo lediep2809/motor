@@ -37,16 +37,28 @@ namespace Motor.Services
         }
 
 
-        public List<Order> getOrderChart(string data)
+        public listChartOrder getOrderChart(ChartOrder paging, string created)
         {
             try
             {
-                var order = _Db.Orders.Where(
-                    e => e.Createdby.Equals(data) && !e.Status.Equals(3)
-                   
-                ).ToList();
+                int pageNum = paging.PageNumber <= 0 ? 1 : paging.PageNumber;
+                int pageSize = paging.PageSize <= 0 ? 10 : paging.PageSize;
+                var status = paging.status;
+                int s = 0;
 
-                return order;
+                Int32.TryParse(status, out s);
+
+                var order = _Db.Orders.Where(e => e.Status.Equals(s))
+                    .Skip((pageNum - 1) * pageSize)
+                    .Take(pageSize)
+                    .OrderByDescending(s => s.Createddate)
+                    .ToList();
+                var total = _Db.Orders.Where(e => e.Status.Equals(s)).Count();
+                listChartOrder data = new listChartOrder();
+                data.orders = order;
+                data.total = total;
+
+                return data;
             }
             catch (Exception ex)
             {
@@ -58,8 +70,8 @@ namespace Motor.Services
         {
             try
             {
-                var orderDeatail = _Db.OrderDetials.Where(e => e.orderId.Equals(idOrder)).ToList();
-
+/*                var orderDeatail = _Db.OrderDetials.Where(e => e.orderId.Equals(idOrder)).ToList();
+*/
                 var item = (
                from ai in _Db.OrderDetials
 
@@ -138,6 +150,16 @@ namespace Motor.Services
                 
                 if(payOrder != null)
                 {
+                    var orderDeatail = _Db.OrderDetials.Where(e => e.orderId.Equals(id)).ToList();
+                    foreach(var x in orderDeatail)
+                    {
+                        var item = _Db.CartItems.Where(e => e.createBy.Equals(createBy) && e.motorId.Equals(x.motorId));
+                        if(item != null)
+                        {
+                            _Db.CartItems.Remove((CartItem)item);
+                        }
+                    }
+
                     payOrder.Status = 1;
                     _Db.Orders.Update(payOrder);
                     _Db.SaveChanges();

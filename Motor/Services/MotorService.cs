@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Motor.ApiModel;
 using Motor.Models;
 
 namespace Motor.Services
@@ -52,7 +53,7 @@ namespace Motor.Services
                         && (status =="" || p.Status.Equals(s)) )
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)
-                    .OrderByDescending(s => s.Status)
+                    .OrderByDescending(s => s.Createddate)
                     .ToList();
 
             List<getAllMotor> allRooms = new List<getAllMotor>();
@@ -119,7 +120,7 @@ namespace Motor.Services
                         && (email == "" || p.Createdby.Equals(email)))
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)
-                    .OrderByDescending(s => s.Createdby)
+                    .OrderByDescending(s => s.Createddate)
                     .ToList();
 
             List<getAllMotor> allRooms = new List<getAllMotor>();
@@ -218,6 +219,88 @@ namespace Motor.Services
                 return null;
             }
         }
+
+
+        public Comment addCmt(newCmt cmt,string email)
+        {
+            try
+            {
+                Comment comment = new Comment();
+                comment.Id = Guid.NewGuid().ToString();
+                comment.comment = cmt.comment;
+                comment.motorId = cmt.motorId;
+                comment.Createdby = email;
+                comment.createdDate = DateTime.Now;
+                comment.modifyDate = DateTime.Now;
+                _Db.Comments.Add(comment);
+                _Db.SaveChanges();
+
+                return comment;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public Comment updateCmt(updateCmt cmt, string email)
+        {
+            try
+            {
+                var userCmt = _Db.Comments.Where(e => e.Id.Equals(cmt.cmtId.Trim())
+                    && e.Createdby.Equals(email)).SingleOrDefault();
+                if(userCmt != null)
+                {
+                    userCmt.comment = cmt.comment;
+                    userCmt.modifyDate = DateTime.Now;
+                    _Db.Comments.Update(userCmt);
+                    _Db.SaveChanges();
+                    return userCmt;
+                }
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public string delCmt(string cmtId, string email)
+        {
+            try
+            {
+                var userCmt = _Db.Comments.Where(e => e.Id.Equals(cmtId.Trim())
+                    && e.Createdby.Equals(email)).SingleOrDefault();
+                if (userCmt != null)
+                {
+                    _Db.Comments.Remove(userCmt);
+                    _Db.SaveChanges();
+                    return "Xóa thành công";
+                }
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public List<Comment> getCmtInMotor(string motorId)
+        {
+            try
+            {
+                var Cmt = _Db.Comments.Where(e => e.motorId.Equals(motorId.Trim()))
+                    .OrderByDescending(e=>e.createdDate).ToList();
+                return Cmt;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
 
 
     }

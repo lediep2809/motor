@@ -31,6 +31,8 @@ public partial class R4rContext : DbContext
 
     public virtual DbSet<OrderDetail> OrderDetials { get; set; }
 
+    public virtual DbSet<Comment> Comments { get; set; }
+
     private string host = Environment.GetEnvironmentVariable("PGHOST");
 
 
@@ -193,6 +195,28 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
             entity.Property(e => e.Quantity)
                 .HasColumnName("quantity");
         });
+
+        modelBuilder.Entity<Comment>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("motor_cmt_pkey");
+
+            entity.ToTable("motor_cmt");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Createdby)
+                .HasColumnName("createdby");
+            entity.Property(e => e.motorId)
+                .HasColumnName("motor_id");
+            entity.Property(e => e.comment)
+                .HasColumnName("comment");
+            entity.Property(e => e.createdDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdate");
+            entity.Property(e => e.modifyDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modifydate");
+        });
+
 
         OnModelCreatingPartial(modelBuilder);
     }
