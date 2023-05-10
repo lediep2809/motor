@@ -39,7 +39,7 @@ namespace AuthenticationAndAuthorization.Controllers
 
         [HttpPost("addToCart")]
         [Authorize]
-        public async Task<ActionResult> addToCart(List<CartOrder> carts)
+        public async Task<ActionResult> addToCart(CartOrder carts)
         {
             var email = _userService.getTokenValue(Request, DefaultString.Email);
             var alert = _cartService.saveCartShop(carts, email);
