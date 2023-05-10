@@ -148,7 +148,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
             entity.ToTable("cart_shop");
 
-            entity.Property(e => e.CartId).HasColumnName("cartId");
+            entity.Property(e => e.CartId).HasColumnName("cartid");
             entity.Property(e => e.Quantity)
                 .HasColumnName("quantity");
             entity.Property(e => e.motorId)

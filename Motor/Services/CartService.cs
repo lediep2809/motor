@@ -40,9 +40,9 @@ namespace Motor.Services
         {
             try
             {
-                var CartItems = _Db.CartItems.Where(e => e.createBy.Equals(createBy)).ToList();
+             /*   var CartItems = _Db.CartItems.Where(e => e.createBy.Equals(createBy)).ToList();
                 _Db.CartItems.RemoveRange(CartItems);
-                _Db.SaveChanges();
+                _Db.SaveChanges();*/
 
                 foreach (var x in data)
                 {
