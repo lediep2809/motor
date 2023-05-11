@@ -153,10 +153,10 @@ namespace Motor.Services
                     var orderDeatail = _Db.OrderDetials.Where(e => e.orderId.Equals(id)).ToList();
                     foreach(var x in orderDeatail)
                     {
-                        var item = _Db.CartItems.Where(e => e.createBy.Equals(createBy) && e.motorId.Equals(x.motorId));
+                        var item = _Db.CartItems.Where(e => e.createBy.Equals(createBy) && e.motorId.Equals(x.motorId)).FirstOrDefault();
                         if(item != null)
                         {
-                            _Db.CartItems.Remove((CartItem)item);
+                            _Db.CartItems.Remove(item);
                         }
                     }
 
