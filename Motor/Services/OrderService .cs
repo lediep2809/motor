@@ -145,15 +145,14 @@ namespace Motor.Services
         {
             try
             {
-                var payOrder = _Db.Orders.Where(e => e.Createdby.Equals(createBy) &&
-                e.orderId.Equals(id)).FirstOrDefault();
+                var payOrder = _Db.Orders.Where(e => e.orderId.Equals(id)).FirstOrDefault();
                 
                 if(payOrder != null)
                 {
                     var orderDeatail = _Db.OrderDetials.Where(e => e.orderId.Equals(id)).ToList();
                     foreach(var x in orderDeatail)
                     {
-                        var item = _Db.CartItems.Where(e => e.createBy.Equals(createBy) && e.motorId.Equals(x.motorId)).FirstOrDefault();
+                        var item = _Db.CartItems.Where(e => e.createBy.Equals(payOrder.Createdby) && e.motorId.Equals(x.motorId)).FirstOrDefault();
                         if(item != null)
                         {
                             _Db.CartItems.Remove(item);

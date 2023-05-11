@@ -70,7 +70,7 @@ namespace AuthenticationAndAuthorization.Controllers
         }
 
         [HttpPost("payOrder")]
-        [Authorize]
+        [Authorize(Roles = DefaultString.ROLE_1)]
         public async Task<ActionResult> payOrder(string orderId)
         {
             var email = _userService.getTokenValue(Request, DefaultString.Email);
