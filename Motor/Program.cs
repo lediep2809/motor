@@ -18,6 +18,7 @@ builder.Services.AddScoped<CategoryService, CategoryService>();
 builder.Services.AddScoped<UserService, UserService>();
 builder.Services.AddScoped<CartService, CartService>();
 builder.Services.AddScoped<OrderService, OrderService>();
+builder.Services.AddScoped<BlogService, BlogService>();
 //services cors
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";

@@ -33,6 +33,8 @@ public partial class R4rContext : DbContext
 
     public virtual DbSet<Comment> Comments { get; set; }
 
+    public virtual DbSet<Blog> Blogs { get; set; }
+
     private string host = Environment.GetEnvironmentVariable("PGHOST");
 
 
@@ -215,6 +217,30 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
             entity.Property(e => e.modifyDate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("modifydate");
+        });
+
+
+        modelBuilder.Entity<Blog>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("blog_pkey");
+
+            entity.ToTable("blog");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Createdby)
+                .HasColumnName("created_by");
+            entity.Property(e => e.Title)
+                .HasColumnName("title");
+            entity.Property(e => e.Content)
+                .HasColumnName("content");
+            entity.Property(e => e.Img)
+                .HasColumnName("img");
+            entity.Property(e => e.createdDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_date");
+            entity.Property(e => e.modifyDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modify_date");
         });
 
 
