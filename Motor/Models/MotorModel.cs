@@ -20,4 +20,8 @@ public partial class MotorModel
     public DateTime Createddate { get; set; }
 
     public int? Status { get; set; }
+
+    public int? farmous { get; set; }
+
+    public string? salePrice { get; set; }
 }

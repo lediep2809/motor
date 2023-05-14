@@ -84,6 +84,10 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
                 .HasMaxLength(255)
                 .HasColumnName("price");
             entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.farmous).HasColumnName("famous");
+            entity.Property(e => e.salePrice)
+                .HasMaxLength(255)
+                .HasColumnName("sale_price");
         });
 
         modelBuilder.Entity<User>(entity =>
