@@ -199,7 +199,8 @@ namespace AuthenticationAndAuthorization.Controllers
             room.Description = newRoom.Description;
             room.Price = newRoom.Price;
             room.Createdby = email;
-
+            room.salePrice = newRoom.salePrice;
+            room.farmous = newRoom.farmous;
             room.Createddate = DateTime.Today;
             room.Status = 0;
 
