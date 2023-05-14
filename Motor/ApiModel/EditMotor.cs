@@ -21,5 +21,10 @@
 
         public string[] imgMotor { get; set; }
 
+
+        public int? farmous { get; set; }
+
+        public string? salePrice { get; set; }
+
     }
 }

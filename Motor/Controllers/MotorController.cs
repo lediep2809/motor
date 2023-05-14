@@ -147,7 +147,7 @@ namespace AuthenticationAndAuthorization.Controllers
         }
 
         [HttpPost("editMotor")]
-        [Authorize]
+        [Authorize(Roles = DefaultString.ROLE_1)]
         public async Task<ActionResult> editRooms(EditMotor room)
         {
             var roomCheck = _context.Motors.Where(e => e.Id == room.Id).FirstOrDefault();
@@ -168,6 +168,8 @@ namespace AuthenticationAndAuthorization.Controllers
             roomCheck.Description = room.Description;
             roomCheck.Price = room.Price;
             roomCheck.Status = room.Status;
+            roomCheck.salePrice= room.salePrice;
+            roomCheck.farmous= room.farmous;
             var roomEdit = _motorService.updateRoom(roomCheck, room.imgMotor);
             if (roomEdit == null)
             {
