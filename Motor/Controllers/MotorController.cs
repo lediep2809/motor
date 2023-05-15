@@ -168,7 +168,8 @@ namespace AuthenticationAndAuthorization.Controllers
             roomCheck.Description = room.Description;
             roomCheck.Price = room.Price;
             roomCheck.Status = room.Status;
-            roomCheck.salePrice= room.salePrice;
+            roomCheck.salePrice = room.salePrice == null || room.salePrice.Equals("undefined") ? null
+                                : room.salePrice;
             roomCheck.farmous= room.farmous;
             var roomEdit = _motorService.updateRoom(roomCheck, room.imgMotor);
             if (roomEdit == null)
@@ -199,7 +200,8 @@ namespace AuthenticationAndAuthorization.Controllers
             room.Description = newRoom.Description;
             room.Price = newRoom.Price;
             room.Createdby = email;
-            room.salePrice = newRoom.salePrice;
+            room.salePrice = newRoom.salePrice == null || newRoom.salePrice.Equals("undefined")? null
+                : newRoom.salePrice;
             room.farmous = newRoom.farmous;
             room.Createddate = DateTime.Today;
             room.Status = 0;

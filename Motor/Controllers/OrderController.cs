@@ -58,10 +58,10 @@ namespace AuthenticationAndAuthorization.Controllers
 
         [HttpPost("newOrder")]
         [Authorize]
-        public async Task<ActionResult> newOrder(List<CartOrder> carts)
+        public async Task<ActionResult> newOrder(newOrder newOrder)
         {
             var email = _userService.getTokenValue(Request, DefaultString.Email);
-            var alert = _orderService.newOrder(carts,email);
+            var alert = _orderService.newOrder(newOrder, email);
             if (alert != null)
             {
                 return Ok(alert);

@@ -22,6 +22,12 @@ namespace Motor.Services
             var price = paging.Price.ToLower().Trim();
             var type = paging.type.Trim();
             var status = paging.status;
+            var priceSale = paging.PriceSale;
+            var colPrice = $"u.price";
+            if (priceSale == 1)
+            {
+                colPrice = $"u.sale_price";
+            }
             int s = 0;
 
             Int32.TryParse(status, out s);
@@ -32,22 +38,29 @@ namespace Motor.Services
 
             if (price.Equals("first"))
             {
-                to = 1000000;
+                to = 1000;
                 from = 5000000;
             }
             else if (price.Equals("second"))
             {
-                to = 6000000;
-                from = 10000000;
+                to = 5000000;
+                from = 15000000;
             }
             else if (price.Equals("third"))
             {
-                to = 11000000;
-                from = 15000000;
+                to = 15000000;
+                from = 30000000;
+            }
+            else if (price.Equals("fourth"))
+            {
+                to = 30000000;
+                from = 999999999;
             }
 
             var test = _Db.Motors
-                    .FromSqlRaw($"select * from motor as u where ( '{price}' = '' or TO_NUMBER(u.price,'9999999999') between '{to}' and '{from}')")
+                    .FromSqlRaw($"select * from motor as u where ( '{price}' = '' or TO_NUMBER(" +
+                    colPrice +
+                    $",'9999999999') between '{to}' and '{from}')")
                     .Where(p => (p.Name.ToUpper().Trim().Contains(search))
                         && (type == "" || p.Type.Equals(type))
                         && (status =="" || p.Status.Equals(s)) )

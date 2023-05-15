@@ -42,6 +42,7 @@ namespace Motor.Services
                     createBy = ai.createBy,
                     totalprice  = ai.totalprice,
                     price = al.Price,
+                    priceSale = al.salePrice,
                     motorName=al.Name,
                     motorImg = _Db.ImgMotors.Where(e => e.idMotor.Equals(ai.motorId)).Select(e => e.Imgbase64).FirstOrDefault(),
                 }).ToList();
@@ -66,7 +67,14 @@ namespace Motor.Services
                     string? test = _Db.Motors
                         .Where(e => e.Id.Equals(x.motorId))
                         .Select(e => e.Price).SingleOrDefault();
-                    if (test != null)
+                    string? priceSale = _Db.Motors
+                       .Where(e => e.Id.Equals(x.motorId))
+                       .Select(e => e.salePrice).SingleOrDefault();
+                    if (priceSale != null)
+                    {
+                        price = int.Parse(priceSale);
+                    }
+                    else if (priceSale == null || test != null)
                     {
                         price = int.Parse(test);
                     }
@@ -133,7 +141,14 @@ namespace Motor.Services
                 string? test = _Db.Motors
                     .Where(e => e.Id.Equals(data.motorId))
                     .Select(e => e.Price).SingleOrDefault();
-                if (test != null)
+                string? priceSale = _Db.Motors
+                       .Where(e => e.Id.Equals(data.motorId))
+                       .Select(e => e.salePrice).SingleOrDefault();
+                if (priceSale != null)
+                {
+                    price = int.Parse(priceSale);
+                }
+                else if (priceSale == null || test != null)
                 {
                     price = int.Parse(test);
                 }

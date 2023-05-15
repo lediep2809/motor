@@ -7,6 +7,8 @@
 
         public string? price { get; set; }
 
+        public string? priceSale { get; set; }
+
         public int Quantity { get; set; }
 
         public string? motorName { get; set; }

@@ -16,6 +16,8 @@
 
         public string? price { get; set; }
 
+        public string? priceSale { get; set; }
+
         public string? motorName { get; set; }
 
         public string? motorImg { get; set; }

@@ -81,6 +81,7 @@ namespace Motor.Services
                {
                    motorId = ai.motorId,
                    Quantity = ai.Quantity,
+                   priceSale = al.salePrice,
                    price = al.Price,
                    motorName = al.Name,
                    motorImg = _Db.ImgMotors.Where(e => e.idMotor.Equals(ai.motorId)).Select(e => e.Imgbase64).FirstOrDefault(),
@@ -94,26 +95,33 @@ namespace Motor.Services
             }
         }
 
-        public Order newOrder(List<CartOrder> carts ,string createBy)
+        public Order newOrder(newOrder newOrder, string createBy)
         {
             try
             {
-
+                
                 Order order = new Order();
                 Guid myuuid = Guid.NewGuid();
                 order.orderId = myuuid.ToString();
                 order.Createdby = createBy;
                 order.Status = 0;
                 order.Createddate = DateTime.Today;
-
+                order.address = newOrder.address;
                 int totalPrice = 0;
-                foreach (var x in carts)
+                foreach (var x in newOrder.carts)
                 {
                     int price = 0;
                     string? test = _Db.Motors
                         .Where(e => e.Id.Equals(x.motorId))
                         .Select(e => e.Price).SingleOrDefault();
-                    if (test != null)
+                    string? priceSale = _Db.Motors
+                        .Where(e => e.Id.Equals(x.motorId))
+                        .Select(e => e.salePrice).SingleOrDefault();
+                    if (priceSale != null)
+                    {
+                        price = int.Parse(priceSale);
+                    }
+                    else if (priceSale == null || test != null)
                     {
                         price = int.Parse(test);
                     }

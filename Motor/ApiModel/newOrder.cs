@@ -2,6 +2,7 @@
 {
     public class newOrder
     {
-        public string id { get; set; } = null!;
+        public List<CartOrder> carts { get; set; } = null!;
+        public string address { get; set; } = null!;
     }
 }

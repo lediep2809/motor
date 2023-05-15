@@ -10,6 +10,9 @@
 
         public string? totalPrice { get; set; }
 
+        public string? address { get; set; }
+
+
         public int? Status { get; set; }
     }
 }

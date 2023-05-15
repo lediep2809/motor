@@ -183,6 +183,8 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
                 .HasColumnName("status");
             entity.Property(e => e.totalPrice)
                 .HasColumnName("totalprice");
+            entity.Property(e => e.address)
+                .HasColumnName("address");
             entity.Property(e => e.Createddate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("createddate");
