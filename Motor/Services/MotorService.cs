@@ -24,9 +24,11 @@ namespace Motor.Services
             var status = paging.status;
             var priceSale = paging.PriceSale;
             var colPrice = $"u.price";
+            var sql = $"";
             if (priceSale == 1)
             {
                 colPrice = $"u.sale_price";
+                sql = $"and u.sale_price <> null";
             }
             int s = 0;
 
@@ -60,7 +62,8 @@ namespace Motor.Services
             var test = _Db.Motors
                     .FromSqlRaw($"select * from motor as u where ( '{price}' = '' or TO_NUMBER(" +
                     colPrice +
-                    $",'9999999999') between '{to}' and '{from}')")
+                    $",'9999999999') between '{to}' and '{from}') " +
+                    sql)
                     .Where(p => (p.Name.ToUpper().Trim().Contains(search))
                         && (type == "" || p.Type.Equals(type))
                         && (status =="" || p.Status.Equals(s)) )
