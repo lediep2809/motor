@@ -28,7 +28,7 @@ namespace Motor.Services
             if (priceSale == 1)
             {
                 colPrice = $"u.sale_price";
-                sql = $"and u.sale_price <> null";
+                sql = $" and u.sale_price IS NOT NULL";
             }
             int s = 0;
 

@@ -66,12 +66,12 @@ namespace Motor.Services
             }
         }
 
-        public List<detailOrder> getOrderDetial(string idOrder, string data)
+        public deatailO getOrderDetial(string idOrder, string data)
         {
             try
             {
-/*                var orderDeatail = _Db.OrderDetials.Where(e => e.orderId.Equals(idOrder)).ToList();
-*/
+                var order = _Db.Orders.Where(e => e.orderId.Equals(idOrder)).FirstOrDefault();
+
                 var item = (
                from ai in _Db.OrderDetials
 
@@ -87,7 +87,10 @@ namespace Motor.Services
                    motorImg = _Db.ImgMotors.Where(e => e.idMotor.Equals(ai.motorId)).Select(e => e.Imgbase64).FirstOrDefault(),
                }).ToList();
 
-                return item;
+                deatailO deatail = new deatailO();
+                deatail.adress = order.address;
+                deatail.detailOrder = item;
+                return deatail;
             }
             catch (Exception ex)
             {

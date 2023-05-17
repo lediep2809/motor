@@ -14,5 +14,6 @@
         public string? motorName { get; set; }
 
         public string? motorImg { get; set; }
+
     }
 }
