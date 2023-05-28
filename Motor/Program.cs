@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<R4rContext>(options =>
-    options.UseNpgsql("Server=containers-us-west-15.railway.app;Database=railway;Port=6613;User Id=postgres;Password=P1uIYcTfSal2qMZqwZzX"));
+    options.UseNpgsql("Server=containers-us-west-15.railway.app;Database=railway;Port=6613;User Id=postgres;Password=WYjAcsNisSazUChOEAYN"));
 builder.Services.AddScoped<MotorService, MotorService>();
 builder.Services.AddScoped<CategoryService, CategoryService>();
 builder.Services.AddScoped<UserService, UserService>();
